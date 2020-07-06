@@ -1,11 +1,24 @@
 Package: popstudy
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: popstudy Package
+Version: 1.0.0
+Depends:
+    R (>= 3.5.0)
+Authors@R: c(
+    person("César", "Gamboa-Sanabria", email="info@cesargamboasanabria.com", role=c( "aut", "mdc", "cph", "cre"), comment=c(ORCID = "0000-0001-6733-4759"))
+    )
+Maintainer: César Gamboa Sanabria <info@cesargamboasanabria.com>
+Description: Applied techniques to demographic analysis.
+Imports:
+    ggplot2,
+    lubridate,
+    dplyr,
+    Rdpack
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
+RdMacros: Rdpack
 LazyData: true
+URL: http://www.cesargamboasanabria.com
+RoxygenNote: 7.1.0
+Suggests: 
+    testthat
