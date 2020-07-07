@@ -11,8 +11,13 @@ Maintainer: César Gamboa Sanabria <info@cesargamboasanabria.com>
 Description: Applied techniques to demographic analysis.
 Imports:
     ggplot2,
+    magrittr,
     lubridate,
     dplyr,
+    tidyr,
+    stats,
+    demography,
+    forecast,
     Rdpack
 License: GPL-3 + file LICENSE
 Encoding: UTF-8

@@ -20,9 +20,9 @@
 #'
 #' @examples
 #'
-#' # According to the Panama census of 2000-05-14,
-#' # the population was 2,839,177. The 2010-05-16 census
-#' # calculated a population of 3,405,813.
+#' # According to the Panama census at 2000-05-14,
+#' # the population was 2,839,177. In 2010-05-16, the census
+#' # calculates 3,405,813 population.
 #' # To get r:
 #'
 #' growth_exp(N0=2839177, Nt=3405813, t0="2000-05-14", t="2010-05-16", time_interval = "years")
@@ -54,7 +54,7 @@ growth_exp <- function(Nt=NULL, N0=NULL, r=NULL, t0, t, time_interval, date=FALS
         }else({
 
             delta <- (log(Nt)-log(N0))/r
-            t <- lubridate::date_decimal(lubridate::decimal_date(lubridate::ymd(t0))+delta)
+            t <- date_decimal(decimal_date(ymd(t0))+delta)
             time_interval <- "years"
         })}else({
 
@@ -63,8 +63,8 @@ growth_exp <- function(Nt=NULL, N0=NULL, r=NULL, t0, t, time_interval, date=FALS
 
             }else({
 
-                delta <- lubridate::interval(lubridate::ymd(t0),lubridate::ymd(t))
-                delta <- eval(parse(text = paste("delta/lubridate::", time_interval, "(1)", sep="")))
+                delta <- interval(ymd(t0),ymd(t))
+                delta <- eval(parse(text = paste("delta/", time_interval, "(1)", sep="")))
 
                 if(delta<=0){
 

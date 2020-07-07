@@ -29,9 +29,9 @@ Assuming an exponential behavior estimates the population size at time t, the gr
 }
 \examples{
 
-# According to the Panama census of 2000-05-14,
-# the population was 2,839,177. The 2010-05-16 census
-# calculated a population of 3,405,813.
+# According to the Panama census at 2000-05-14,
+# the population was 2,839,177. In 2010-05-16, the census
+# calculates 3,405,813 population.
 # To get r:
 
 growth_exp(N0=2839177, Nt=3405813, t0="2000-05-14", t="2010-05-16", time_interval = "years")
