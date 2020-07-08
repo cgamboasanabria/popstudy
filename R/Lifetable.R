@@ -20,7 +20,7 @@
 #'
 #' @param ... additional arguments to be passed to \code{\link{read.demogdata}}, such as \code{label}.
 #'
-#' @return Lifetable function returns a list with both data frames, wide and long format, for specified element in argument \code{element} for desire years.
+#' @return \code{Lifetable} function returns a list with both data frames, wide and long format, for specified element in argument \code{element} for desire years.
 #'
 #' @examples
 #'

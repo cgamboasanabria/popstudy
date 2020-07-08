@@ -36,7 +36,7 @@ Lifetable(
 \item{...}{additional arguments to be passed to \code{\link{read.demogdata}}, such as \code{label}.}
 }
 \value{
-Lifetable function returns a list with both data frames, wide and long format, for specified element in argument \code{element} for desire years.
+\code{Lifetable} function returns a list with both data frames, wide and long format, for specified element in argument \code{element} for desire years.
 }
 \description{
 Estimates a lifetable from mortality rates and population data.

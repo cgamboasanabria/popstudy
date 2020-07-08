@@ -1,6 +1,6 @@
-#' Exponential growth
+#' Linear growth
 #'
-#' Assuming an exponential behavior estimates the population size at time t, the growth rate, or population at time 0.
+#' Assuming an linear behavior, estimates the population size at time t, the growth rate, or population at time 0.
 #'
 #' @param Nt numeric. The population at time t. If null and date = FALSE, then estimate the population at time t.
 #'
@@ -16,7 +16,7 @@
 #'
 #' @param date logical. If TRUE, then estimates the moment t when Nt reaches a specific value.
 #'
-#' @return \code{growth_exp} returns a data frame with N0, Ntr, t0, t, delta, and time_interval for desire parameters.
+#' @return \code{growth_linear} returns a data frame with N0, Ntr, t0, t, delta, and time_interval for desire parameters.
 #'
 #' @examples
 #'
@@ -25,17 +25,17 @@
 #' # calculates 3,405,813 population.
 #' # To get r:
 #'
-#' growth_exp(N0=2839177, Nt=3405813, t0="2000-05-14", t="2010-05-16", time_interval = "years")
+#' growth_linear(N0=2839177, Nt=3405813, t0="2000-05-14", t="2010-05-16", time_interval = "years")
 #'
 #' # To get Nt at 2000-06-30:
 #'
-#' growth_exp(N0=2839177, r=0.0182, t0="2000-05-14", t="2000-06-30", time_interval = "years")
+#' growth_linear(N0=2839177, r=0.0182, t0="2000-05-14", t="2000-06-30", time_interval = "years")
 #'
 #' # The time when the population will be 5,000,000.
 #'
-#' growth_exp(N0=2839177, Nt=5000000, r=0.0182, t0="2000-05-14", date=TRUE)
+#' growth_linear(N0=2839177, Nt=5000000, r=0.0182, t0="2000-05-14", date=TRUE)
 #'
-#' @seealso \code{\link{growth_linear}}, \code{\link{growth_logistic}}
+#' @seealso \code{\link{growth_exp}},\code{\link{growth_logistic}}
 #'
 #' @author César Gamboa-Sanabria
 #'
@@ -44,7 +44,7 @@
 #' \insertRef{growth_exp}{popstudy}
 #'
 #' @export
-growth_exp <- function(Nt=NULL, N0=NULL, r=NULL, t0, t, time_interval, date=FALSE){
+growth_linear <- function(Nt=NULL, N0=NULL, r=NULL, t0, t, time_interval, date=FALSE){
 
     if(date){
 
@@ -54,7 +54,7 @@ growth_exp <- function(Nt=NULL, N0=NULL, r=NULL, t0, t, time_interval, date=FALS
 
         }else({
 
-            delta <- (log(Nt)-log(N0))/r
+            delta <- (Nt-N0)/(N0*r)
             t <- date_decimal(decimal_date(ymd(t0))+delta)
             time_interval <- "years"
         })}else({
@@ -75,19 +75,19 @@ growth_exp <- function(Nt=NULL, N0=NULL, r=NULL, t0, t, time_interval, date=FALS
 
                     if(!is.null(Nt) & !is.null(N0) & is.null(r)){
 
-                        r <- (1/delta)*log(Nt/N0)
+                        r <- (Nt-N0)/(N0*delta)
 
                     }
 
                     if(is.null(Nt) & !is.null(N0) & !is.null(r)){
 
-                        Nt <- N0*exp(r*delta)
+                        Nt <- (N0+N0*r*delta)
 
                     }
 
                     if(!is.null(Nt) & is.null(N0) & !is.null(r)){
 
-                        N0 <- Nt/exp(r*delta)
+                        N0 <- Nt/(1+r*delta)
 
                     }
                 })
