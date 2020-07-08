@@ -1,5 +1,5 @@
 # popstudy
-Applied techniques to demographic analysis
+Applied techniques to demographic analysis.
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cgamboasanabria/popstudy/CI)
 ![GitHub language count](https://img.shields.io/github/languages/count/cgamboasanabria/popstudy)
