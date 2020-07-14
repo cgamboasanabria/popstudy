@@ -18,6 +18,7 @@
 #' @export
 descriptive_plot <- function(data,...){
     vars <- select(data,...) %>%
+        mutate_all(function(x) as.character(as.numeric(x))) %>%
         as.list
 
     plot_fun <- function(variables){
