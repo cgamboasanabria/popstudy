@@ -18,10 +18,9 @@
 #' @export
 descriptive_plot <- function(data,...){
     vars <- select(data,...) %>%
-        mutate_all(function(x) as.character(as.numeric(x))) %>%
         as.list
 
-    plot_fun <- function(variables){
+    plot_fun <- function(variables, name_x){
         dens1 <- density(variables)
 
         pos_median <- which(dens1$x>=quantile(variables, .25) & dens1$x <= quantile(variables, .75))
@@ -49,11 +48,11 @@ descriptive_plot <- function(data,...){
                                                               expression(paste(4, sigma)))))+
             scale_y_continuous(expand = c(0, 0))+
             theme_classic()+
-            theme(axis.text.y=element_blank(),
-                  axis.line.y=element_blank(),
-                  axis.ticks.y=element_blank(),
-                  axis.title.y = element_blank(),
-                  panel.grid.major.x = element_line(linetype = "longdash", color = "black"))+
+            theme(#axis.text.y=element_blank(),
+                #axis.line.y=element_blank(),
+                #axis.ticks.y=element_blank(),
+                #axis.title.y = element_blank(),
+                panel.grid.major.x = element_line(linetype = "longdash", color = "black"))+
             geom_area(data = with(dens1, data.frame(x, y))[pos_median,],
                       aes(x=x, y=y),
                       fill="dodgerblue4")+
@@ -61,19 +60,20 @@ descriptive_plot <- function(data,...){
                                       quantile(variables, probs = c(.25,.75)),
                                       max(variables)),
                        linetype="twodash", color = "blue")+
-            geom_vline(xintercept = sigmas(variables), linetype="dashed", color="darkorange2")+labs(x="")
+            geom_vline(xintercept = sigmas(variables), linetype="dashed", color="darkorange2")+
+            labs(x=name_x)
 
         measures <- data.frame(Min=min(variables), Q1=quantile(variables, .25), Median=quantile(variables, .5),
                                Q3=quantile(variables, .75), Max=max(variables), SD=sd(variables),
                                Kurtosis=kurtosis(variables), Skweness=skewness(variables)) %>%
             mutate_all(round, 2) %>%
             ggtexttable(., rows = NULL,
-                        theme = ttheme("mBlue"))
+                        theme = ttheme("mBlue", base_size = 10,padding = unit(c(6,3), "mm")))
 
         ggarrange(descr_plot, measures,
                   ncol = 1, nrow = 2,
-                  heights = c(3, 0.5))
+                  heights = c(3, .5))
     }
 
-    lapply(vars, plot_fun)
+    suppressWarnings(mapply(plot_fun, name_x=names(vars), variables=vars, SIMPLIFY = FALSE))
 }
