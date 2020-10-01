@@ -1,0 +1,261 @@
+```{r}
+library(popstudy)
+library(lubridate)
+```
+
+# Ejemplo de los supuestos disponibles para estimar años-personas vividos en una población
+
+```{r}
+growth_exp2 <- function(Nt=NULL, N0=NULL, r=NULL, r_dec=4, t0, t, time_interval, date=FALSE, form){
+
+    if(date){
+
+        if(date & (is.null(N0) | is.null(r) | is.null(Nt))){
+
+            stop("When date=TRUE, N0, Nt and r are needed")
+
+        }else({
+
+            delta <- (log(Nt)-log(N0))/r
+            t <- date_decimal(decimal_date(ymd(t0))+delta)
+            time_interval <- "years"
+        })}else({
+
+            if(((is.null(Nt) & is.null(N0)) | (is.null(Nt) & is.null(r)) | (is.null(N0) & is.null(r)))){
+                stop("At least two from Nt, N0 and r must be a numeric value when date=FALSE")
+
+            }else({
+
+                delta <- interval(ymd(t0),ymd(t))
+                delta <- eval(parse(text = paste("delta/", time_interval, "(1)", sep="")))
+
+                if(delta<=0){
+
+                    stop("t0 can't be greater than t")
+
+                }else({
+
+                    if(!is.null(Nt) & !is.null(N0) & is.null(r)){
+
+                        r <- round((1/delta)*log(Nt/N0), r_dec)
+
+                    }
+
+                    if(is.null(Nt) & !is.null(N0) & !is.null(r)){
+
+                        Nt <- N0*exp(r*delta)
+
+                    }
+
+                    if(!is.null(Nt) & is.null(N0) & !is.null(r)){
+
+                        N0 <- Nt/exp(r*delta)
+
+                    }
+                })
+            })
+
+        })
+
+    data.frame(N0=as.integer(N0), Nt=as.integer(Nt), r=paste(r), t0=t0, t=paste(t),
+               delta=delta, time_interval,
+               PY_constant=(Nt-N0)/r, PY_mid_period=N0*exp(r*(delta/2))*delta, PY_mean=mean(c(N0, Nt))*delta)
+
+}
+```
+
+```{r}
+growth_exp2(N0=3810179, Nt=4301712, t0="2000-06-28", t="2011-05-30", time_interval = "years", r_dec=9)
+```
+
+```{r}
+growth_exp2(N0=3810179, r=0.011110881, t0="2000-06-28", t="2000-06-30", time_interval = "years", r_dec=9)
+```
+
+```{r}
+growth_exp2(N0=3810179, r=0.011110881, t0="2000-06-28", t="2011-06-30", time_interval = "years", r_dec=9)
+```
+
+
+```{r}
+growth_exp2(Nt=143691, N0=100000, t0="2000-01-01", t="2010-01-01", time_interval = "years", r_dec = 9)
+```
+
+```{r}
+growth_exp2(Nt=3802099, N0=3642687, t0="2010-07-01", t="2013-01-01", time_interval = "years", r_dec = 9)
+```
+
+```{r}
+growth_exp2(N0=3642687, r=0.0171, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 9)
+```
+
+# Ejercicio 1
+
+## Población exponencial y años persona exponencial.
+
+### Todos los decimales
+
+```{r}
+growth_exp2(N0=3642687, Nt=3802099, t0="2010-07-01", t="2013-01-01", time_interval = "years", r_dec = 9)
+```
+
+#### N(0)=N(2010, 5)=2010-07-01
+
+```{r}
+df1 <- growth_exp2(N0=3642687, r=0.01710456, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 9, form="N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df2 <- growth_exp2(N0=3802099, r=0.01710456, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 9, form = "N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df3 <- growth_exp2(N0=3642687, r=0.01710456, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 9, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df4 <- growth_exp2(N0=3802099, r=0.01710456, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 9, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df5 <- growth_exp2(N0=3642687, r=0.0171, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df6 <- growth_exp2(N0=3802099, r=0.0171, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df7 <- growth_exp2(N0=3642687, r=0.0171, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df8 <- growth_exp2(N0=3802099, r=0.0171, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Exponencial") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+exponenciales <- do.call(rbind, list(df1, df2, df3, df4, df5, df6, df7, df8)) %>% 
+    arrange(crecimiento, N0, Nt, AP, delta)
+```
+
+# Crecimiento lineal
+
+```{r}
+growth_linear2 <- function(Nt=NULL, N0=NULL, r=NULL, r_dec=4, t0, t, time_interval, date=FALSE){
+
+    if(date){
+
+        if(date & (is.null(N0) | is.null(r) | is.null(Nt))){
+
+            stop("When date=TRUE, N0, Nt and r are needed")
+
+        }else({
+
+            delta <- (Nt-N0)/(N0*r)
+            t <- date_decimal(decimal_date(ymd(t0))+delta)
+            time_interval <- "years"
+        })}else({
+
+            if(((is.null(Nt) & is.null(N0)) | (is.null(Nt) & is.null(r)) | (is.null(N0) & is.null(r)))){
+                stop("At least two from Nt, N0 and r must be a numeric value when date=FALSE")
+
+            }else({
+
+                delta <- interval(ymd(t0),ymd(t))
+                delta <- eval(parse(text = paste("delta/", time_interval, "(1)", sep="")))
+
+                if(delta<=0){
+
+                    stop("t0 can't be greater than t")
+
+                }else({
+
+                    if(!is.null(Nt) & !is.null(N0) & is.null(r)){
+
+                        r <- round((Nt-N0)/(N0*delta), r_dec)
+
+                    }
+
+                    if(is.null(Nt) & !is.null(N0) & !is.null(r)){
+
+                        Nt <- N0*(1+r*delta)
+
+                    }
+
+                    if(!is.null(Nt) & is.null(N0) & !is.null(r)){
+
+                        N0 <- Nt/(1+r*delta)
+
+                    }
+                })
+            })
+
+        })
+
+    data.frame(N0=as.integer(N0), Nt=as.integer(Nt), r=paste(r), t0=t0, t=paste(t),
+               delta=delta, time_interval,
+               PY_constant=(Nt-N0)/r, PY_mid_period=N0*exp(0.017104558*(delta/2))*delta, PY_mean=mean(c(N0, Nt))*delta)
+
+}
+```
+
+```{r}
+growth_linear2(Nt=3802099, N0=3642687, t0="2010-07-01", t="2013-01-01", time_interval = "years", r_dec = 9)
+```
+
+```{r}
+growth_linear2(N0=3642687, r=0.017476152, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 9)
+```
+
+```{r}
+interval(ymd("2010-07-01"), ymd("2015-07-01"))/years(1)
+
+(ymd("2010-07-01")+ymd("2015-07-01"))
+ymd("2010-07-01")+years(2)+months(6)
+```
+
+
+```{r}
+df1 <- growth_linear2(N0=3642687, r=0.01710456, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 9, form="N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df2 <- growth_linear2(N0=3802099, r=0.01710456, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 9, form = "N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df3 <- growth_linear2(N0=3642687, r=0.01710456, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 9, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df4 <- growth_linear2(N0=3802099, r=0.01710456, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 9, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df5 <- growth_linear2(N0=3642687, r=0.0171, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df6 <- growth_linear2(N0=3802099, r=0.0171, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*exp(r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df7 <- growth_linear2(N0=3642687, r=0.0171, t0="2010-07-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+df8 <- growth_linear2(N0=3802099, r=0.0171, t0="2013-01-01", t="2015-07-01", time_interval = "years", r_dec = 4, form="N0*(1+r*(delta/2))*delta") %>% 
+    mutate(N0=t0, crecimiento="Lineal") %>% 
+    select(N0, crecimiento, Nt, r, delta, AP, PY_mid_period) 
+
+lineales <- do.call(rbind, list(df1, df2, df3, df4, df5, df6, df7, df8)) %>% 
+    arrange(crecimiento, N0, Nt, AP, delta)
+```
+
+
+```{r}
+final <- do.call(rbind, list(exponenciales, lineales)) %>% 
+    mutate(AP=sub("delta", "T", AP),
+           AP=sub("*delta"))
+```
+
