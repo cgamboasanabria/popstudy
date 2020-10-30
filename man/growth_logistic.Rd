@@ -39,5 +39,5 @@ upper = 8, lower=1.5, t=1987)
 \code{\link{growth_exp}}, \code{\link{growth_linear}}
 }
 \author{
-César Gamboa-Sanabria
+Cesar Gamboa-Sanabria
 }

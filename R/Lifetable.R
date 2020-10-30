@@ -37,7 +37,7 @@
 #' ## element="ex", label="CR")
 #'
 #'
-#' @author César Gamboa-Sanabria
+#' @author Cesar Gamboa-Sanabria
 #'
 #' @references
 #'

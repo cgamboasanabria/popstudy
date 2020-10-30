@@ -24,7 +24,7 @@
 #'
 #' @seealso \code{\link{growth_exp}}, \code{\link{growth_linear}}
 #'
-#' @author César Gamboa-Sanabria
+#' @author Cesar Gamboa-Sanabria
 #'
 #' @references
 #'

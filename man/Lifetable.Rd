@@ -61,5 +61,5 @@ Estimates a lifetable from mortality rates and population data.
 \insertRef{Lifetable}{popstudy}
 }
 \author{
-César Gamboa-Sanabria
+Cesar Gamboa-Sanabria
 }

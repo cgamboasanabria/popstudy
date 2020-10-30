@@ -20,7 +20,7 @@
 #'
 #' @examples
 #'
-#' # According to the Panama census at 2000-05-14,
+#' # According to the Panama census in 2000-05-14,
 #' # the population was 2,839,177. In 2010-05-16, the census
 #' # calculates 3,405,813 population.
 #' # To get r:
@@ -37,7 +37,7 @@
 #'
 #' @seealso \code{\link{growth_linear}}, \code{\link{growth_logistic}}
 #'
-#' @author César Gamboa-Sanabria
+#' @author Cesar Gamboa-Sanabria
 #'
 #' @references
 #'
