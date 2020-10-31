@@ -11,10 +11,10 @@
 #' @importFrom Rdpack reprompt
 #' @importFrom lubridate date_decimal decimal_date interval ymd years year days
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr select filter group_by mutate summarise arrange mutate_all row_number left_join right_join rename desc mutate_if ungroup contains
+#' @importFrom dplyr select filter group_by mutate summarise arrange mutate_all row_number left_join right_join rename desc mutate_if ungroup contains last mutate_at vars n
 #' @importFrom ggplot2 ggplot theme_classic scale_x_continuous geom_density aes geom_segment scale_y_continuous geom_text theme element_text element_blank margin ggtitle labs dup_axis element_line geom_area geom_density geom_vline
 #' @importFrom tidyr gather pivot_wider separate
-#' @importFrom stats complete.cases density quantile sd na.omit coef lm xtabs
+#' @importFrom stats complete.cases density quantile sd na.omit coef lm xtabs cor.test
 #' @importFrom demography read.demogdata extract.years set.upperage lifetable lca
 #' @importFrom forecast forecast
 #' @importFrom moments kurtosis skewness
@@ -24,4 +24,8 @@
 #' @importFrom utils combn
 #' @importFrom rcompanion wilcoxonRG
 #' @importFrom DescTools Lambda
+#' @importFrom corrr network_plot
+#' @importFrom Hmisc %nin%
+#' @importFrom corrplot corrplot
+#' @importFrom correlation correlation
 NULL

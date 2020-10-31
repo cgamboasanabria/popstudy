@@ -5,9 +5,9 @@ Version: 1.0.0
 Depends:
     R (>= 3.5.0)
 Authors@R: c(
-    person("César", "Gamboa-Sanabria", email="info@cesargamboasanabria.com", role=c( "aut", "mdc", "cph", "cre"), comment=c(ORCID = "0000-0001-6733-4759"))
+    person("Cesar", "Gamboa-Sanabria", email="info@cesargamboasanabria.com", role=c( "aut", "mdc", "cph", "cre"), comment=c(ORCID = "0000-0001-6733-4759"))
     )
-Maintainer: César Gamboa Sanabria <info@cesargamboasanabria.com>
+Maintainer: Cesar Gamboa Sanabria <info@cesargamboasanabria.com>
 Description: Applied techniques to demographic analysis.
 Imports:
     ggplot2,
@@ -23,7 +23,13 @@ Imports:
     moments,
     grid,
     stackoverflow,
+    DescTools,
+    rcompanion,
     utils,
+    corrr,
+    Hmisc,
+    corrplot,
+    correlation,
     Rdpack
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
