@@ -60,5 +60,5 @@ growth_linear(N0=2839177, Nt=5000000, r=0.0182, t0="2000-05-14", date=TRUE)
 \code{\link{growth_exp}},\code{\link{growth_logistic}}
 }
 \author{
-César Gamboa-Sanabria
+Cesar Gamboa-Sanabria
 }

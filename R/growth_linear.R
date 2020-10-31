@@ -37,7 +37,7 @@
 #'
 #' @seealso \code{\link{growth_exp}},\code{\link{growth_logistic}}
 #'
-#' @author César Gamboa-Sanabria
+#' @author Cesar Gamboa-Sanabria
 #'
 #' @references
 #'

@@ -27,5 +27,5 @@ karup_king(grouped_age_CR_pop)
 \code{\link{grouped_age_CR_pop}}
 }
 \author{
-César Gamboa-Sanabria
+Cesar Gamboa-Sanabria
 }

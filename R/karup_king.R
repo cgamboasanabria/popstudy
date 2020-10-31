@@ -10,7 +10,7 @@
 #'
 #' karup_king(grouped_age_CR_pop)
 #'
-#' @author César Gamboa-Sanabria
+#' @author Cesar Gamboa-Sanabria
 #'
 #' @references
 #'

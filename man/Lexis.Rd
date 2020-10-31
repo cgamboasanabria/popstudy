@@ -4,12 +4,23 @@
 \alias{Lexis}
 \title{Lexis diagram}
 \usage{
-Lexis(deaths_data, births_data, choose_year, choose_month, choose_day, ages)
+Lexis(
+  deaths_data,
+  births_data,
+  first.date = NULL,
+  choose_year,
+  choose_month,
+  choose_day,
+  ages,
+  factors = NULL
+)
 }
 \arguments{
 \item{deaths_data}{data.frame. A dataset with three variables: date_reg, the registered death date, age, the age of decease; and deaths, the deaths number for that date. See \code{\link{CR_deaths}}.}
 
 \item{births_data}{data data.frame. A dataset with two variables: date_reg, the registered birth date; and births, the births number for that date. See \code{\link{CR_births}}.}
+
+\item{first.date}{character. Optional argument that specifies the first date of interest.}
 
 \item{choose_year}{numeric. The year from which the countdown begins until the desired minimum age is reached.}
 
@@ -18,6 +29,8 @@ Lexis(deaths_data, births_data, choose_year, choose_month, choose_day, ages)
 \item{choose_day}{numeric. The day from which the countdown begins until the desired minimum age is reached.}
 
 \item{ages}{numeric. An ages vector to plot the diagram.}
+
+\item{factors}{numeric. Optional argument to set specific factors to set alpha and delta sections in Lexis Diagram.}
 }
 \value{
 Lexis function returns a list with two objects: diagram, the Lexis diagram; and deaths, the estimated deaths number.
@@ -27,12 +40,20 @@ Plot a Lexis Diagram from births and deaths data for a given year, month, and da
 }
 \examples{
 
-Lexis(CR_deaths, CR_births, choose_year=2011, choose_month=1, choose_day=1, ages=0:9)
-
+Lexis(CR_deaths, CR_births, choose_year=2011, choose_month=1, choose_day=1, ages=0:9)$diagram
+\dontrun{
+##Lexis diagram with specific factors
+data("births_deaths")
+Births <- filter(births_deaths$births, sex=="male")
+Deaths <- filter(births_deaths$deaths, sex=="male")
+Lexis(deaths_data=Deaths, births_data=Births, first.date = "1999-01-01",
+choose_year=2007, choose_month=1, choose_day=1, ages=0:4,
+factors = c(.2,.41,.47,.48,.48))$diagram
+}
 }
 \references{
 \insertRef{Lexis}{popstudy}
 }
 \author{
-César Gamboa-Sanabria
+Cesar Gamboa-Sanabria
 }

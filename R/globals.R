@@ -2,4 +2,8 @@ utils::globalVariables(c("date_reg", "age", "Li", "A", "Ls", "choose_days.fin", 
                          "previous", "cohort", "deaths2", "filter.previous", "filter.same",
                          "births", ".", "deaths2.total", "pop.total", "x", "y", "xend", "yend",
                          "estimation", "d1", "d2", "d3", "f1", "f2", "f3", "karup_king_factors",
-                         "pop"))
+                         "pop", "1", "2", "3", "4", "5", "6", "7", "8", "D", "Nj", "Nj.", "U",
+                         "aj", "aj.", "aj.Nj.", "ajNj", "group", "level", "pop_fix", "req_age",
+                         "suf", "value", "childs", "CPW", "Max", "Ignored", "Unknown", "Zi",
+                         "Ui", "ages", "factors", "fac.sep.y", "delta", "filter.delta", "filter.alpha",
+                         "sex"))

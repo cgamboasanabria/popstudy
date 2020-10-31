@@ -29,7 +29,7 @@ Assuming an exponential behavior estimates the population size at time t, the gr
 }
 \examples{
 
-# According to the Panama census at 2000-05-14,
+# According to the Panama census in 2000-05-14,
 # the population was 2,839,177. In 2010-05-16, the census
 # calculates 3,405,813 population.
 # To get r:
@@ -52,5 +52,5 @@ growth_exp(N0=2839177, Nt=5000000, r=0.0182, t0="2000-05-14", date=TRUE)
 \code{\link{growth_linear}}, \code{\link{growth_logistic}}
 }
 \author{
-César Gamboa-Sanabria
+Cesar Gamboa-Sanabria
 }
