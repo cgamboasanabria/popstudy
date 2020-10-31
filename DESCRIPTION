@@ -28,6 +28,6 @@ Encoding: UTF-8
 RdMacros: Rdpack
 LazyData: true
 URL: http://www.cesargamboasanabria.com
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     testthat
