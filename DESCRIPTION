@@ -28,6 +28,7 @@ Imports:
     utils,
     corrr,
     Hmisc,
+    psych,
     corrplot,
     correlation,
     Rdpack

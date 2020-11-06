@@ -29,6 +29,9 @@ Beers <- function(data,...){
     grouped_age <- as.character(vars[[1]])
     pop <- vars[[2]]
     data <- data.frame(grouped_age=grouped_age, pop=pop)
+    limit <- as.numeric(last(gsub("[+]", "", data$grouped_age)))
+    top <-data[nrow(data),] %>%
+        rename(age=grouped_age)
 
     constant <- data.frame(group=rep(paste("G", 1:5, sep=""), by=5, each=25),
                            level=rep(rep(paste("L", 1:5, sep=""), each=5), 5),
@@ -58,7 +61,7 @@ Beers <- function(data,...){
         select(-suf)
 
 
-    data.frame(age=0:99,
+    result <- data.frame(age=0:99,
                req_age=c(rep("0-4,5-9,10-14,15-19,20-24", 15),
                          rep("5-9,10-14,15-19,20-24,25-29",5),
                          rep("10-14,15-19,20-24,25-29,30-34",5),
@@ -91,5 +94,9 @@ Beers <- function(data,...){
         arrange(age, grouped_age) %>%
         mutate(pop_fix=pop*value) %>%
     group_by(age) %>%
-    summarise(pop=round(sum(pop_fix), 0))
+        summarise(pop=round(sum(pop_fix, na.rm = T), 0)) %>%
+        filter(age<limit) %>%
+        mutate(age=as.character(age))
+
+    do.call(rbind, list(result, top))
 }
