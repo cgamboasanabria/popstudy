@@ -201,7 +201,8 @@ correlate_df <- function(data){
                       sig.level = 0.05, diag = T, method="color",
                       addCoef.col = "black", number.cex=.8, tl.col = "black",
                       order = "original", tl.srt=45, pch="X",pch.col = "firebrick1", addrect = 3)
-    plot1 <- network_plot(cormat)
+    plot1 <- tryCatch({ network_plot(cormat)}, error=function(e) NULL)
+
     diag(cormat[,-1]) <- 1
 
     list(cormat=cormat, network=plot1, probability_plot=plot2)
