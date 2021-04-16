@@ -4,10 +4,12 @@
 \alias{descriptive_plot}
 \title{descriptive_plot}
 \usage{
-descriptive_plot(data, ...)
+descriptive_plot(data, labels = NULL, ...)
 }
 \arguments{
 \item{data}{data.frame.}
+
+\item{labels}{A vector with x-axis labels.}
 
 \item{...}{additional arguments to be passed to \code{\link{select}}.}
 }
