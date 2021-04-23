@@ -30,6 +30,7 @@ Imports:
     Hmisc,
     corrplot,
     correlation,
+    parallel,
     Rdpack
 License: GPL-3 + file LICENSE
 Encoding: UTF-8

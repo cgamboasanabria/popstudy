@@ -6,4 +6,6 @@ utils::globalVariables(c("date_reg", "age", "Li", "A", "Ls", "choose_days.fin", 
                          "aj", "aj.", "aj.Nj.", "ajNj", "group", "level", "pop_fix", "req_age",
                          "suf", "value", "childs", "CPW", "Max", "Ignored", "Unknown", "Zi",
                          "Ui", "ages", "factors", "fac.sep.y", "delta", "filter.delta", "filter.alpha",
-                         "sex", "V1", "V1_class", "V2", "V2_class", "cor_type", "r", "rowname"))
+                         "sex", "V1", "V1_class", "V2", "V2_class", "cor_type", "r", "rowname",
+                         "train", "test", "Valor", "Medida", "AIC", "AICc", "BIC", "MAE", "RMSE", "MASE",
+                         "puntaje", "ponde", "mod"))

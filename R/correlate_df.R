@@ -7,7 +7,7 @@
 #' @return \code{correlate_df} function returns a list with three objects: A data-frame with the correlation matrix and two correlation plots.
 #'
 #' @examples
-#'
+#' \donttest{
 #' df <- data.frame(cont1=rnorm(100),
 #' cont2=rnorm(100),
 #' ordi1=factor(sample(1:5, 100, replace = TRUE), ordered = TRUE),
@@ -18,7 +18,7 @@
 #' nomi2=factor(sample(LETTERS[1:8], 100, replace = TRUE)))
 #'
 #' correlate_df(df)
-#'
+#' }
 #' @details \code{correlate_df} takes data.frame class objects and works only with numeric, factor, and ordered class variables, so a previous data cleaning is needed for optimal results. A variable is considered nominal when it is a factor variable with more than two levels, and it is no ordered. When a numeric variable has only two different values, it is considered a binary variable. Also, when a factor variable has only two levels, it is regarded as a binary variable. The computed correlation will depend on the paired-variables class: Pearson method when both variables are numeric, Kendall correlation with a numeric and an ordinal variable, point-biserial with a numeric and a binary variable,  Polychoric correlation with two ordinal variables, Tetrachoric correlation when both are binary, Rank-Biserial when one is ordinal, and the other is binary; and Kruskal's Lambda with one binary and one nominal, or both nominal variables. A Gaussian linear model is fitted to estimate the multiple correlation coefficient in the specific cases of one nominal variable and another numerical or ordered, so the user should take it carefully.
 #'
 #' @author Cesar Gamboa-Sanabria

@@ -11,21 +11,22 @@
 #' @importFrom Rdpack reprompt
 #' @importFrom lubridate date_decimal decimal_date interval ymd years year days
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr select filter group_by mutate summarise arrange mutate_all row_number left_join right_join rename desc mutate_if ungroup contains last mutate_at vars n
+#' @importFrom dplyr select filter distinct group_by mutate summarise arrange mutate_all row_number left_join right_join rename desc mutate_if ungroup contains last mutate_at vars n
 #' @importFrom ggplot2 ggplot theme_classic scale_x_continuous geom_density aes geom_segment scale_y_continuous geom_text theme element_text element_blank margin ggtitle labs dup_axis element_line geom_area geom_density geom_vline
-#' @importFrom tidyr gather pivot_wider separate
+#' @importFrom tidyr gather pivot_wider separate spread
 #' @importFrom stats complete.cases density quantile sd na.omit coef lm xtabs cor.test
 #' @importFrom demography read.demogdata extract.years set.upperage lifetable lca
-#' @importFrom forecast forecast
+#' @importFrom forecast forecast Arima accuracy
 #' @importFrom moments kurtosis skewness
 #' @importFrom ggpubr ggarrange ggtexttable ttheme
 #' @importFrom grid unit
 #' @importFrom stackoverflow match.call.defaults
-#' @importFrom utils combn
+#' @importFrom utils combn capture.output
 #' @importFrom rcompanion wilcoxonRG
 #' @importFrom DescTools Lambda
 #' @importFrom corrr network_plot
 #' @importFrom Hmisc %nin%
 #' @importFrom corrplot corrplot
 #' @importFrom correlation correlation
+#' @importFrom parallel detectCores makeCluster clusterExport clusterMap stopCluster clusterEvalQ
 NULL
