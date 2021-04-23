@@ -4,6 +4,8 @@
 #'
 #' @param data data.frame.
 #'
+#' @param labels A vector with x-axis labels.
+#'
 #' @param ... additional arguments to be passed to \code{\link{select}}.
 #'
 #' @return \code{descriptive_plot} function returns a plot with density and descriptive statistics.
@@ -17,9 +19,13 @@
 #' @author Cesar Gamboa-Sanabria
 #'
 #' @export
-descriptive_plot <- function(data,...){
+descriptive_plot <- function(data,labels=NULL,...){
     vars <- select(data,...) %>%
         as.list
+
+    if(!is.null(labels)){
+        names(vars) <- labels
+    }
 
     plot_fun <- function(variables, name_x){
         dens1 <- density(variables)
