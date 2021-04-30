@@ -22,6 +22,8 @@
 #'
 #' @param clusters PENDIENTE
 #'
+#' @param LAMBDA PENDIENTE
+#'
 #' @param ... PENDIENTE
 #'
 #' @return \code{correlate_df} function returns a list with three objects: A data-frame with the correlation matrix and two correlation plots.
@@ -44,14 +46,16 @@ op.arima <- function(arima_process = c(p = 1, d = 1, q = 1,
                      seasonal_periodicity,
                      time_serie, reg = NULL, horiz = 12,
                      prop=.8, training_weight=.2, testing_weight=.8,
-                     parallelize=FALSE, clusters=detectCores(logical = FALSE),...){
+                     parallelize=FALSE, clusters=detectCores(logical = FALSE),
+                     LAMBDA=NULL,...){
 
     data_partition <- round(length(time_serie)*prop, 0)
     train <<- subset(time_serie, end=data_partition)
     test <<- subset(time_serie, start=data_partition+1)
 
     ####################################################################################
-    arima_model <- function(time_serie, non_seasonal, seasonal, periodic, regr = NULL,...){
+    arima_model <- function(time_serie, non_seasonal, seasonal, periodic,
+                            regr = reg, lambda = LAMBDA,...){
 
         if(is.list(non_seasonal)){
             non_seasonal <- unlist(non_seasonal)
@@ -66,7 +70,8 @@ op.arima <- function(arima_process = c(p = 1, d = 1, q = 1,
             arima_model <- tryCatch({
                 Arima(time_serie,
                       order = non_seasonal,
-                      seasonal = seasonal_part,...)
+                      seasonal = seasonal_part,
+                      lambda = LAMBDA,...)
             },
             error = function(e) NULL)
         }
@@ -76,7 +81,8 @@ op.arima <- function(arima_process = c(p = 1, d = 1, q = 1,
                 Arima(time_serie,
                       order = non_seasonal,
                       seasonal = seasonal_part,
-                      xreg = regr,...)
+                      xreg = regr,
+                      lambda = LAMBDA,...)
             },
             error = function(e) NULL)
         }

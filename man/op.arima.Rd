@@ -15,6 +15,7 @@ op.arima(
   testing_weight = 0.8,
   parallelize = FALSE,
   clusters = detectCores(logical = FALSE),
+  LAMBDA = NULL,
   ...
 )
 }
@@ -38,6 +39,8 @@ op.arima(
 \item{parallelize}{PENDIENTE}
 
 \item{clusters}{PENDIENTE}
+
+\item{LAMBDA}{PENDIENTE}
 
 \item{...}{PENDIENTE}
 }
