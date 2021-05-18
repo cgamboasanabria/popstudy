@@ -22,6 +22,9 @@ project_structure <- function(){
     dir.create("References/Documents")
     dir.create("Script")
     dir.create("Script/Functions")
+    dir.create("Products")
+    dir.create("Products/Static_Documents")
+    dir.create("Products/Interactive_Documents")
 
     file.create("References/references.bib")
     file.create("Script/01_data_cleansing.Rmd")
