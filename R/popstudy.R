@@ -29,4 +29,5 @@
 #' @importFrom corrplot corrplot
 #' @importFrom correlation correlation
 #' @importFrom parallel detectCores makeCluster clusterExport clusterMap stopCluster clusterEvalQ
+#' @importFrom here here
 NULL
