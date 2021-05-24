@@ -27,6 +27,7 @@ project_structure <- function(){
     dir.create("Products/Interactive_Documents")
     dir.create("Deliverables")
 
+    file.create("README.md")
     file.create("Data/.gitkeep")
     file.create("Data/Raw/.gitkeep")
     file.create("Data/Processed/.gitkeep")
