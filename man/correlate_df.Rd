@@ -4,10 +4,12 @@
 \alias{correlate_df}
 \title{correlate_df}
 \usage{
-correlate_df(data)
+correlate_df(data, keep_class = NULL)
 }
 \arguments{
 \item{data}{data.frame. A dataset with the variables to correlate.}
+
+\item{keep_class}{list. A list that contains desire classes for specyfic variables.}
 }
 \value{
 \code{correlate_df} function returns a list with three objects: A data-frame with the correlation matrix and two correlation plots.

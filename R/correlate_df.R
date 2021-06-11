@@ -4,6 +4,8 @@
 #'
 #' @param data data.frame. A dataset with the variables to correlate.
 #'
+#' @param keep_class list. A list that contains desire classes for specyfic variables.
+#'
 #' @return \code{correlate_df} function returns a list with three objects: A data-frame with the correlation matrix and two correlation plots.
 #'
 #' @examples
@@ -28,7 +30,7 @@
 #' \insertRef{correlate_df}{popstudy}
 #'
 #' @export
-correlate_df <- function(data){
+correlate_df <- function(data, keep_class = NULL){
     class1 <- lapply(data, class)
 
     #Continuous variables
@@ -85,9 +87,24 @@ correlate_df <- function(data){
                   nominal = names(nom_vars)[names(nom_vars)%nin%names(bin_vars)])
     types <- types[which(sapply(types, length)>0)]
 
+    keep_class2 <- data.frame(variable = names(keep_class), class = unlist(keep_class))
+
+    types <- do.call(rbind, list(keep_class2,
+                                 {
+                                     data.frame(class = names(types), variable = unlist(types)) %>%
+                                         filter(variable %nin% keep_class2$variable)
+                                 })) %>%
+        split(., .$class) %>%
+        lapply(function(x){
+            pull(x, variable)
+        })
+
     #Recoding binary variables
     if("binary"%in% names(types)){
-        data <- mutate_at(data, vars(types$binary), as.numeric)
+        data <- mutate_at(data, vars(types$binary), function(x){
+            x <- as.numeric(x)
+            x <- ifelse(x == min(x), 0, 1)
+        })
     }
 
     types <- lapply(types, function(x){
@@ -96,6 +113,28 @@ correlate_df <- function(data){
         do.call(rbind, .) %>%
         mutate(class=unlist(mapply(rep, names(types), sapply(types, length), SIMPLIFY = FALSE))) %>%
         rename("variable"="x")
+
+
+    if(!is.null(keep_class)){
+        keep_class <- data.frame(variable = names(keep_class), class = unlist(keep_class))
+
+        types <- do.call(rbind, list(keep_class,
+                                     {types %>%
+                                             filter(variable %nin% keep_class$variable)}))
+    }
+
+    errors <- types %>%
+        group_by(variable) %>%
+        summarise(cases=n()) %>%
+        filter(cases>1)
+
+    if(nrow(errors)>0){
+        print(table(types$variable, types$class))
+        stop("More than 1 possible class for the same variable.")
+
+    }
+
+
 
     stages <- t(combn(types$variable, 2))
     stages <- data.frame(V1=stages[,1], V2=stages[,2])
