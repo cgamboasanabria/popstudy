@@ -44,43 +44,69 @@
 #' \insertRef{Lifetable}{popstudy}
 #'
 #' @export
-Lifetable <- function(rates, pops, sex, max_age=NULL, first_year,
-                threshold, jump, element=c("mx", "qx", "lx", "dx", "Lx", "Tx", "ex", "rx"),...){
-    data <- read.demogdata(file=rates, popfile=pops, type="mortality",
-                           max.mx = 1, skip = 0, popskip = 0,...)
-    if(is.null(max_age)){
+Lifetable <- function(rates,
+                      pops,
+                      sex,
+                      max_age = NULL,
+                      first_year,
+                      threshold,
+                      jump,
+                      element = c("mx", "qx", "lx", "dx", "Lx", "Tx", "ex", "rx"),
+                      ...) {
+    data <- read.demogdata(
+        file = rates,
+        popfile = pops,
+        type = "mortality",
+        max.mx = 1,
+        skip = 0,
+        popskip = 0,
+        ...
+    )
+    if (is.null(max_age)) {
         max_age <- max(data$age)
     }
-    data <- extract.years(data=data, years = min(data$year):(first_year-1)) %>%
+    data <-
+        extract.years(data = data,
+                      years = min(data$year):(first_year - 1)) %>%
         set.upperage(., max.age = max_age)
-    threshold <- threshold-max(data$year)
+    threshold <- threshold - max(data$year)
 
-    mod.mort <- lca(data, series=sex, max.age=max_age, interpolate = TRUE)
-    proy.morta <- forecast(mod.mort, threshold, jumpchoice=jump)
+    mod.mort <-
+        lca(data,
+            series = sex,
+            max.age = max_age,
+            interpolate = TRUE)
+    proy.morta <- forecast(mod.mort, threshold, jumpchoice = jump)
 
     projection_table <- lifetable(proy.morta,
-                                  series=sex,
-                                  type="period",
+                                  series = sex,
+                                  type = "period",
                                   max.age = max_age)
-    projection_table <- eval(parse(text = paste("projection_table$", element, sep=""))) %>%
+    projection_table <-
+        eval(parse(text = paste("projection_table$", element, sep = ""))) %>%
         as.data.frame()
 
     estimation_table <- lifetable(data,
                                   series = sex,
                                   type = "period",
                                   max.age = max_age)
-    estimation_table <- eval(parse(text = paste("estimation_table$", element, sep=""))) %>%
+    estimation_table <-
+        eval(parse(text = paste("estimation_table$", element, sep = ""))) %>%
         as.data.frame()
-    full_table <- do.call(cbind, list(estimation_table, projection_table))%>%
-        mutate(age=0:max_age,
-               sex=sex)
+    full_table <-
+        do.call(cbind, list(estimation_table, projection_table)) %>%
+        mutate(age = 0:max_age,
+               sex = sex)
 
-    full_table <- full_table[, c(ncol(full_table)-1, ncol(full_table), 1:(ncol(full_table)-2))] %>%
-        mutate(sex=ifelse(sex=="male", "Males", "Females"),
-               age=as.double(age))
+    full_table <-
+        full_table[, c(ncol(full_table) - 1, ncol(full_table), 1:(ncol(full_table) -
+                                                                      2))] %>%
+        mutate(sex = str_to_title(sex),
+               age = as.double(age))
 
-    short_table <- gather(full_table, year, estimation, -c(age, sex)) %>%
-        mutate(year=as.numeric(year))
+    short_table <-
+        gather(full_table, year, estimation,-c(age, sex)) %>%
+        mutate(year = as.numeric(year))
 
     list(wide_table = full_table, long_table = short_table)
 

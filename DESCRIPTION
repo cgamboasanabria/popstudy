@@ -33,12 +33,13 @@ Imports:
     correlation,
     parallel,
     here,
+    stringr,
     Rdpack
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 RdMacros: Rdpack
 LazyData: true
 URL: http://www.cesargamboasanabria.com
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: 
     testthat

@@ -30,4 +30,5 @@
 #' @importFrom correlation correlation
 #' @importFrom parallel detectCores makeCluster clusterExport clusterMap stopCluster clusterEvalQ
 #' @importFrom here here
+#' @importFrom stringr str_to_title
 NULL
