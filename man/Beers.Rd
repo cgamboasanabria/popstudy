@@ -18,8 +18,9 @@ Beers(data, ...)
 Method to open five-year grouped ages into specific ages.
 }
 \examples{
-
+\donttest{
 Beers(Ecuador1990, age, population)
+}
 
 }
 \references{

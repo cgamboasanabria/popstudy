@@ -14,27 +14,57 @@ mortality_projection(
 )
 }
 \arguments{
-\item{mortality_rates_path}{PENDIENTE}
+\item{mortality_rates_path}{character. Path to Mortality rates in a .txt file.}
 
-\item{total_population_path}{PENDIENTE}
+\item{total_population_path}{character. Path to Populations in a .txt file.}
 
-\item{omega_age}{PENDIENTE}
+\item{omega_age}{numeric. Maximum age.}
 
-\item{horizon}{PENDIENTE}
+\item{horizon}{numeric. The forecast horizon.}
 
-\item{first_year_projection}{PENDIENTE}
+\item{first_year_projection}{numeric. Year for the base population.}
 
-\item{...}{PENDIENTE}
+\item{...}{additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.}
 }
 \value{
-\code{mortality_projection} PENDIENTE
+\code{mortality_projection} returns a list with both female and male mortality projections.
 }
 \description{
 Forecasting mortality rates.
 }
 \examples{
 
-## PENDIENTE
+\donttest{
+
+library(dplyr)
+
+data(CR_mortality_rates_1950_2011)
+
+CR_mortality_rates_1950_2011 \%>\%
+write.table(.,
+file = "CR_mortality_rates_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+
+data(CR_populations_1950_2011)
+
+CR_populations_1950_2011 \%>\%
+write.table(.,
+file = "CR_populations_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+result <- mortality_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
+total_population_path = "CR_populations_1950_2011.txt",
+omega_age = 115, first_year_projection = 2011, horizon = 2150)
+
+result
+}
 
 }
 \author{

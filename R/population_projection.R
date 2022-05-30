@@ -1,14 +1,67 @@
 #' population_projection
 #'
-#' Forecasting population
+#' Forecasting population using the components method.
 #'
-#' @param ... PENDIENTE
+#' @param ... required arguments for \code{\link{mortality_projection}}, \code{\link{TFR_projection}} and \code{\link{netmigration_projection}}.
 #'
-#' @return \code{population_projection} PENDIENTE
+#' @return \code{population_projection} returns the national projections by sex and year.
 #'
 #' @examples
 #'
-#' ## PENDIENTE
+#' \donttest{
+#'
+#' library(dplyr)
+#'
+#' data(CR_mortality_rates_1950_2011)
+#'
+#' CR_mortality_rates_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_mortality_rates_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#'
+#' data(CR_populations_1950_2011)
+#'
+#' CR_populations_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_populations_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#' data(CR_fertility_rates_1950_2011)
+#'
+#' CR_fertility_rates_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_fertility_rates_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#'
+#' data(CR_women_childbearing_age_1950_2011)
+#'
+#' CR_women_childbearing_age_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_women_childbearing_age_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#' result <- population_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
+#' total_population_path = "CR_populations_1950_2011.txt",
+#' TFR_path = "CR_fertility_rates_1950_2011.txt",
+#' WRA_path = "CR_women_childbearing_age_1950_2011.txt",
+#' omega_age = 115, first_year_projection = 2011, horizon = 2150)
+#'
+#' result
+#' }
 #'
 #' @author Cesar Gamboa-Sanabria
 #'
@@ -37,7 +90,7 @@ population_projection <- function(...){
         as.data.frame() %>%
         mutate(edad=row.names(.),
                sexo="Male") %>%
-        gather(año, poblacion, -c(sexo, edad)) %>%
+        gather(periodo, poblacion, -c(sexo, edad)) %>%
         mutate(LI=NA,
                LS=NA)
 
@@ -45,22 +98,22 @@ population_projection <- function(...){
         as.data.frame() %>%
         mutate(edad=row.names(.),
                sexo="Male") %>%
-        gather(año, poblacion, -c(sexo, edad))
+        gather(periodo, poblacion, -c(sexo, edad))
 
     LI <- apply(poblaciones$male, 1:2, quantile, probs=.1, na.rm=TRUE) %>%
         as.data.frame() %>%
         mutate(edad=row.names(.),
                sexo="Male") %>%
-        gather(año, LI, -c(sexo, edad))
+        gather(periodo, LI, -c(sexo, edad))
 
     LS <- apply(poblaciones$male, 1:2, quantile, probs=.9, na.rm=TRUE) %>%
         as.data.frame() %>%
         mutate(edad=row.names(.),
                sexo="Male") %>%
-        gather(año, LS, -c(sexo, edad))
+        gather(periodo, LS, -c(sexo, edad))
 
-    hombres <- merge(hombres, LI, by=c("edad", "sexo", "año")) %>%
-        merge(., LS, by=c("edad", "sexo", "año"))
+    hombres <- merge(hombres, LI, by=c("edad", "sexo", "periodo")) %>%
+        merge(., LS, by=c("edad", "sexo", "periodo"))
 
     hombres <- do.call(rbind, list(hombres, hombres_estimacion))
 
@@ -69,7 +122,7 @@ population_projection <- function(...){
         as.data.frame() %>%
         mutate(edad=row.names(.),
                sexo="Female") %>%
-        gather(año, poblacion, -c(sexo, edad)) %>%
+        gather(periodo, poblacion, -c(sexo, edad)) %>%
         mutate(LI=NA,
                LS=NA)
 
@@ -79,7 +132,7 @@ population_projection <- function(...){
     mujeres <- mujeres %>%
         mutate(edad=row.names(.),
                sexo="Female") %>%
-        gather(año, poblacion, -c(sexo, edad))
+        gather(periodo, poblacion, -c(sexo, edad))
 
     LI <- apply(poblaciones$female, 1:2, quantile, probs=.1, na.rm=TRUE) %>%
         as.data.frame()
@@ -87,7 +140,7 @@ population_projection <- function(...){
     LI <- LI %>%
         mutate(edad=row.names(.),
                sexo="Female") %>%
-        gather(año, LI, -c(sexo, edad))
+        gather(periodo, LI, -c(sexo, edad))
 
     LS <- apply(poblaciones$female, 1:2, quantile, probs=.9, na.rm=TRUE) %>%
         as.data.frame()
@@ -95,23 +148,23 @@ population_projection <- function(...){
     LS <- LS %>%
         mutate(edad=row.names(.),
                sexo="Female") %>%
-        gather(año, LS, -c(sexo, edad))
+        gather(periodo, LS, -c(sexo, edad))
 
-    mujeres <- merge(mujeres, LI, by=c("edad", "sexo", "año")) %>%
-        merge(., LS, by=c("edad", "sexo", "año"))
+    mujeres <- merge(mujeres, LI, by=c("edad", "sexo", "periodo")) %>%
+        merge(., LS, by=c("edad", "sexo", "periodo"))
 
     mujeres <- do.call(rbind, list(mujeres, mujeres_estimacion))
 
     poblaciones_edades_simples <- do.call(rbind, list(hombres, mujeres)) %>%
         mutate(edad=as.numeric(edad),
-               año=as.numeric(año)) %>%
-        arrange(año, edad)
+               periodo=as.numeric(periodo)) %>%
+        arrange(periodo, edad)
 
     poblaciones <- poblaciones_edades_simples %>%
         dplyr::select(edad:poblacion) %>%
         data.frame() %>%
         pivot_wider(names_from=sexo, values_from=poblacion, values_fn = list(poblacion=mean)) %>%
-        rename(Age=edad, Year=año) %>%
+        rename(Age=edad, Year=periodo) %>%
         dplyr::select(Year, Age, Female, Male)
 
     list(mort = mortality_projected, fert = TFR_projected, mig = proy.mig, poblaciones = poblaciones)

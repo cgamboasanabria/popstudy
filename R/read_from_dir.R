@@ -9,9 +9,10 @@
 #' @return \code{read_from_dir} Returns the normalizaed path for a file.
 #'
 #' @examples
-#'
+#' \donttest{
 #' file.create("test_file.txt")
 #' read_from_dir("test_file.txt")
+#' }
 #'
 #' @author Cesar Gamboa-Sanabria
 #'

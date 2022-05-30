@@ -1,6 +1,6 @@
 #' required_packages
 #'
-#' Install/load the required packages.
+#' Install/load the required packages from CRAN.
 #'
 #' @param ... packages names.
 #'

@@ -2,7 +2,7 @@
 #'
 #' Separate grouped-age data to simple ages data using Karup-King separation factors.
 #'
-#' @param data data.frame. A dataset with two variables: \code{age,} the group age each 5 years; and \code{pop}, the population for that age.
+#' @param data data.frame. A dataset with two variables: \code{age}, the group age each 5 years; and \code{pop}, the population for that age.
 #'
 #' @return \code{karup_king} function returns a a data frame with separated simple ages.
 #'

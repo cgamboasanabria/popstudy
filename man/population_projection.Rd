@@ -7,17 +7,70 @@
 population_projection(...)
 }
 \arguments{
-\item{...}{PENDIENTE}
+\item{...}{required arguments for \code{\link{mortality_projection}}, \code{\link{TFR_projection}} and \code{\link{netmigration_projection}}.}
 }
 \value{
-\code{population_projection} PENDIENTE
+\code{population_projection} returns the national projections by sex and year.
 }
 \description{
-Forecasting population
+Forecasting population using the components method.
 }
 \examples{
 
-## PENDIENTE
+\donttest{
+
+library(dplyr)
+
+data(CR_mortality_rates_1950_2011)
+
+CR_mortality_rates_1950_2011 \%>\%
+write.table(.,
+file = "CR_mortality_rates_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+
+data(CR_populations_1950_2011)
+
+CR_populations_1950_2011 \%>\%
+write.table(.,
+file = "CR_populations_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+data(CR_fertility_rates_1950_2011)
+
+CR_fertility_rates_1950_2011 \%>\%
+write.table(.,
+file = "CR_fertility_rates_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+
+data(CR_women_childbearing_age_1950_2011)
+
+CR_women_childbearing_age_1950_2011 \%>\%
+write.table(.,
+file = "CR_women_childbearing_age_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+result <- population_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
+total_population_path = "CR_populations_1950_2011.txt",
+TFR_path = "CR_fertility_rates_1950_2011.txt",
+WRA_path = "CR_women_childbearing_age_1950_2011.txt",
+omega_age = 115, first_year_projection = 2011, horizon = 2150)
+
+result
+}
 
 }
 \author{

@@ -5,7 +5,7 @@
 \alias{popstudy}
 \title{popstudy Package}
 \description{
-Applied techniques to demographic analysis.
+Applied techniques to demographic and time series analysis.
 }
 \author{
 Cesar Gamboa-Sanabria \email{info@cesargamboasanabria.com}

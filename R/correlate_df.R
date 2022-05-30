@@ -124,7 +124,7 @@ correlate_df <- function(data, keep_class = NULL) {
         types %>%
         split(., .$class) %>%
         lapply(function(x) {
-            pull(x, variable)
+            dplyr::pull(x, variable)
         })
 
     #Recoding binary variables

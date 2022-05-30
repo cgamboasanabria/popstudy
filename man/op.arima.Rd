@@ -16,46 +16,50 @@ op.arima(
   parallelize = FALSE,
   clusters = detectCores(logical = FALSE),
   LAMBDA = NULL,
+  ISP = 100,
   ...
 )
 }
 \arguments{
-\item{arima_process}{PENDIENTE}
+\item{arima_process}{numeric. The ARIMA(p,d,q)(P,D,Q) process.}
 
-\item{seasonal_periodicity}{PENDIENTE}
+\item{seasonal_periodicity}{numeric. The seasonal periodicity, 12 for monthly data.}
 
-\item{time_serie}{PENDIENTE}
+\item{time_serie}{ts. The univariate time series object to estimate the models.}
 
-\item{reg}{PENDIENTE}
+\item{reg}{Optionally, a vector or matrix of external regressors, which must have the same number of rows as time_serie.}
 
-\item{horiz}{PENDIENTE}
+\item{horiz}{numeric. The forecast horizon.}
 
-\item{prop}{PENDIENTE}
+\item{prop}{numeric. Data proportion for training dataset.}
 
-\item{training_weight}{PENDIENTE}
+\item{training_weight}{numeric. Importance weight for the goodness of fit and precision measures in the training dataset.}
 
-\item{testing_weight}{PENDIENTE}
+\item{testing_weight}{numeric. Importance weight for the goodness of fit and precision measures in the testing dataset.}
 
-\item{parallelize}{PENDIENTE}
+\item{parallelize}{logical. If TRUE, then use parallel processing.}
 
-\item{clusters}{PENDIENTE}
+\item{clusters}{numeric. The number of clusters for the parallel process.}
 
-\item{LAMBDA}{PENDIENTE}
+\item{LAMBDA}{Optionally. See \code{\link[forecast:Arima]{forecast::Arima()}} for details.}
 
-\item{...}{PENDIENTE}
+\item{ISP}{numeric. Overparameterization indicator to filter the estimated models in the (0,100] interval.}
+
+\item{...}{additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.}
 }
 \value{
-\code{correlate_df} function returns a list with three objects: A data-frame with the correlation matrix and two correlation plots.
+\code{op.arima} function returns a list with the estimated models, the best model and their measures.
 }
 \description{
-Estimates the best ARIMA model using overparameterization.
-}
-\details{
-PENDIENTE
+Estimates the best predictive ARIMA model using overparameterization.
 }
 \examples{
 
-#PENDIENTE
+\donttest{
+
+op.arima(arima_process = c(6,1,6,6,1,6), time_serie = AirPassengers, seasonal_periodicity = 12)
+
+}
 
 }
 \references{

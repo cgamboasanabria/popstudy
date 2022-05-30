@@ -7,25 +7,55 @@
 TFR_projection(TFR_path, WRA_path, horizon, first_year_projection, ...)
 }
 \arguments{
-\item{TFR_path}{PENDIENTE}
+\item{TFR_path}{character. Path to Fertility rates in a .txt file.}
 
-\item{WRA_path}{PENDIENTE}
+\item{WRA_path}{character. Path to Women of Reproductive Age in a .txt file.}
 
-\item{horizon}{PENDIENTE}
+\item{horizon}{numeric. The forecast horizon.}
 
-\item{first_year_projection}{PENDIENTE}
+\item{first_year_projection}{numeric. Year for the base population.}
 
-\item{...}{PENDIENTE}
+\item{...}{additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.}
 }
 \value{
-\code{TFR_projection} PENDIENTE
+\code{TFR_projection} returns the forecast fertility rates.
 }
 \description{
 Forecasting total fertility rates.
 }
 \examples{
 
-## PENDIENTE
+\donttest{
+
+library(dplyr)
+
+data(CR_fertility_rates_1950_2011)
+
+CR_fertility_rates_1950_2011 \%>\%
+write.table(.,
+file = "CR_fertility_rates_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+
+data(CR_women_childbearing_age_1950_2011)
+
+CR_women_childbearing_age_1950_2011 \%>\%
+write.table(.,
+file = "CR_women_childbearing_age_1950_2011.txt",
+sep = "\t",
+row.names = FALSE,
+col.names = TRUE,
+quote = FALSE)
+
+result <- TFR_projection(TFR_path = "CR_fertility_rates_1950_2011.txt",
+WRA_path = "CR_women_childbearing_age_1950_2011.txt",
+omega_age = 115, first_year_projection = 2011, horizon = 2150)
+
+result
+}
 
 }
 \author{

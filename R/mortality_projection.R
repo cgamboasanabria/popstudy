@@ -2,23 +2,53 @@
 #'
 #' Forecasting mortality rates.
 #'
-#' @param mortality_rates_path PENDIENTE
+#' @param mortality_rates_path character. Path to Mortality rates in a .txt file.
 #'
-#' @param total_population_path PENDIENTE
+#' @param total_population_path character. Path to Populations in a .txt file.
 #'
-#' @param omega_age PENDIENTE
+#' @param omega_age numeric. Maximum age.
 #'
-#' @param horizon PENDIENTE
+#' @param horizon numeric. The forecast horizon.
 #'
-#' @param first_year_projection PENDIENTE
+#' @param first_year_projection numeric. Year for the base population.
 #'
-#' @param ... PENDIENTE
+#' @param ... additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.
 #'
-#' @return \code{mortality_projection} PENDIENTE
+#' @return \code{mortality_projection} returns a list with both female and male mortality projections.
 #'
 #' @examples
 #'
-#' ## PENDIENTE
+#' \donttest{
+#'
+#' library(dplyr)
+#'
+#' data(CR_mortality_rates_1950_2011)
+#'
+#' CR_mortality_rates_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_mortality_rates_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#'
+#' data(CR_populations_1950_2011)
+#'
+#' CR_populations_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_populations_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#' result <- mortality_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
+#' total_population_path = "CR_populations_1950_2011.txt",
+#' omega_age = 115, first_year_projection = 2011, horizon = 2150)
+#'
+#' result
+#' }
 #'
 #' @author Cesar Gamboa-Sanabria
 #'
@@ -26,7 +56,7 @@
 mortality_projection <- function(mortality_rates_path, total_population_path,
                                  omega_age, horizon, first_year_projection,...){
 
-    ####################Proceso Hyndman editado con ARIMA##################
+    ####################Proceso H editado con ARIMA##################
     suppressWarnings({
         lt <- function (mx, startage = 0, agegroup = 5, sex)
         {
@@ -244,7 +274,7 @@ mortality_projection <- function(mortality_rates_path, total_population_path,
             return(structure(output,class=c("fmforecast","demogdata")))
         }
 
-        #########################Fin Hyndman editado################################
+        #########################Fin H editado################################
 
         #mortality_rates_path
         mortality_rates <- read.demogdata(file = mortality_rates_path,

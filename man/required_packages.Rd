@@ -10,7 +10,7 @@ required_packages(...)
 \item{...}{packages names.}
 }
 \description{
-Install/load the required packages.
+Install/load the required packages from CRAN.
 }
 \examples{
 

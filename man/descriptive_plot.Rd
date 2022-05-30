@@ -4,14 +4,16 @@
 \alias{descriptive_plot}
 \title{descriptive_plot}
 \usage{
-descriptive_plot(data, labels = NULL, ...)
+descriptive_plot(data, ..., labels = NULL, ylab = "Density")
 }
 \arguments{
 \item{data}{data.frame.}
 
+\item{...}{additional arguments to be passed to \code{\link[dplyr:select]{dplyr::select()}}.}
+
 \item{labels}{A vector with x-axis labels.}
 
-\item{...}{additional arguments to be passed to \code{\link{select}}.}
+\item{ylab}{y-axis label.}
 }
 \value{
 \code{descriptive_plot} function returns a plot with density and descriptive statistics.
@@ -21,9 +23,11 @@ Plot density with descriptive statistics for numerical values.
 }
 \examples{
 
+\donttest{
 df <- data.frame(var1=rpois(50, 6), var2=rgamma(50, shape=5,rate=.4), var3=rnorm(50, 10))
 descriptive_plot(df, var1, var3)
 descriptive_plot(df, var1:var3)
+}
 
 }
 \author{

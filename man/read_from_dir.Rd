@@ -18,9 +18,10 @@ read_from_dir(file, path = NULL)
 Get full path from a file.
 }
 \examples{
-
+\donttest{
 file.create("test_file.txt")
 read_from_dir("test_file.txt")
+}
 
 }
 \author{

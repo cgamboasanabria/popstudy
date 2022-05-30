@@ -2,31 +2,86 @@
 #'
 #' Forecasting net migration.
 #'
-#' @param mortality_rates_path PENDIENTE
+#' @param mortality_rates_path character. Path to Mortality rates in a .txt file.
 #'
-#' @param TFR_path PENDIENTE
+#' @param TFR_path character. Path to Fertility rates in a .txt file.
 #'
-#' @param total_population_path PENDIENTE
+#' @param total_population_path character. Path to Populations in a .txt file.
 #'
-#' @param WRA_path PENDIENTE
+#' @param WRA_path character. Path to Women of Reproductive Age in a .txt file.
 #'
-#' @param omega_age PENDIENTE
+#' @param omega_age numeric. Maximum age.
 #'
-#' @param horizon PENDIENTE
+#' @param horizon numeric. The forecast horizon.
 #'
-#' @param first_year_projection PENDIENTE
+#' @param first_year_projection numeric. Year for the base population.
 #'
-#' @return \code{netmigration_projection} PENDIENTE
+#' @return \code{netmigration_projection} returns the forecast net migration.
 #'
 #' @examples
 #'
-#' ## PENDIENTE
+#' \donttest{
+#'
+#' library(dplyr)
+#'
+#' data(CR_mortality_rates_1950_2011)
+#'
+#' CR_mortality_rates_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_mortality_rates_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#'
+#' data(CR_populations_1950_2011)
+#'
+#' CR_populations_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_populations_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#' data(CR_fertility_rates_1950_2011)
+#'
+#' CR_fertility_rates_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_fertility_rates_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#'
+#' data(CR_women_childbearing_age_1950_2011)
+#'
+#' CR_women_childbearing_age_1950_2011 %>%
+#' write.table(.,
+#' file = "CR_women_childbearing_age_1950_2011.txt",
+#' sep = "\t",
+#' row.names = FALSE,
+#' col.names = TRUE,
+#' quote = FALSE)
+#'
+#' result <- netmigration_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
+#' total_population_path = "CR_populations_1950_2011.txt",
+#' TFR_path = "CR_fertility_rates_1950_2011.txt",
+#' WRA_path = "CR_women_childbearing_age_1950_2011.txt",
+#' omega_age = 115, first_year_projection = 2011, horizon = 2150)
+#'
+#' result
+#' }
 #'
 #' @author Cesar Gamboa-Sanabria
 #'
 #' @export
 netmigration_projection <- function(mortality_rates_path, TFR_path, total_population_path, WRA_path,
                                     omega_age, horizon, first_year_projection){
+
+    require(rainbow)
     #Mortalidad
 
     mortality_rates <- read.demogdata(file = mortality_rates_path,
@@ -94,6 +149,7 @@ netmigration_projection <- function(mortality_rates_path, TFR_path, total_popula
     forecast.fdm2 <- function(object, h=50, level=80, jumpchoice=c("fit","actual"),
                               method="arima", warnings=FALSE, ...)
     {
+
         jumpchoice <- match.arg(jumpchoice)
 
         if(sum(object$weights < 0.1)/length(object$weights) > 0.2) # Probably exponential weights for fitting. Can be ignored for forecasting
@@ -170,6 +226,224 @@ netmigration_projection <- function(mortality_rates_path, TFR_path, total_popula
                                 adjust = TRUE, model = NULL, damped = NULL, stationary = FALSE,
                                 ...)
     {
+
+        ####################################################################################################
+        pegelsna <- function (x, upper = c(alpha = 0.3, beta = 0.2, phi = 0.99),
+                              lower = c(alpha = 0.01, beta = 0.01, phi = 0.9), model = "AZN")
+        {
+            MSE1 <- function(alpha, x) {
+                if (alpha > upper[1])
+                    return(1e+09)
+                if (alpha < 0.01)
+                    return(1e+09)
+                fit <- Arima(x, order = c(0, 1, 1), fixed = alpha - 1)
+                return(fit$sigma2)
+            }
+            MSE2 <- function(alpha, x) {
+                if (any(alpha > upper[1:2]))
+                    return(1e+09)
+                if (any(alpha < lower[1:2]))
+                    return(1e+09)
+                theta1 <- alpha[1] + alpha[1] * alpha[2] - 2
+                theta2 <- 1 - alpha[1]
+                fit <- Arima(x, order = c(0, 2, 2), fixed = c(theta1,
+                                                              theta2))
+                return(fit$sigma2)
+            }
+            MSE3 <- function(alpha, x) {
+                if (any(alpha > upper))
+                    return(1e+09)
+                if (any(alpha < lower))
+                    return(1e+09)
+                if (alpha[3] < alpha[2])
+                    return(1e+09)
+                theta1 <- alpha[1] + alpha[1] * alpha[2] - 1 - alpha[3]
+                theta2 <- (1 - alpha[1]) * alpha[3]
+                phi1 <- alpha[3]
+                fit <- Arima(x, order = c(1, 1, 2), fixed = c(phi1, theta1,
+                                                              theta2))
+                return(fit$sigma2)
+            }
+
+            n <- length(x)
+
+            if (model == "AZN") {
+                fit1 <- nlm(MSE1, (upper[1] + lower[1]) / 2, x = x)
+                fit2 <- nlm(MSE2, (upper[1:2] + lower[1:2]) / 2, x = x)
+                fit3 <- nlm(MSE3, (upper + lower) / 2, x = x)
+                n <- length(x)
+                aic <- c(n * log(fit1$minimum) + 2, n * log(fit2$minimum) +
+                             4, n * log(fit3$minimum) + 6)
+                best <- c("ANN", "AAN", "ADN")[aic == max(aic)]
+            }
+            else
+                best <- model
+
+            if (best == "ANN") {
+                fit1 <- nlm(MSE1, (upper[1] + lower[1]) / 2, x = x, stepmax = 10)
+                fitarima <- Arima(x, order = c(0, 1, 1), fixed = fit1$estimate -
+                                      1)
+                fitpar <- c(alpha = fit1$estimate,
+                            beta = 0,
+                            gamma = 0,
+                            phi = 1)
+                method <- "Robust SES"
+            }
+            else if (best == "AAN") {
+                fit2 <- nlm(MSE2, (upper[1:2] + lower[1:2]) / 2, x = x)
+                theta1 <- fit2$estimate[1] + fit2$estimate[1] * fit2$estimate[2] -
+                    2
+                theta2 <- 1 - fit2$estimate[1]
+                fitarima <- Arima(x, order = c(0, 2, 2), fixed = c(theta1,
+                                                                   theta2))
+                fitpar <- c(alpha = fit2$estimate[1],
+                            beta = fit2$estimate[2],
+                            gamma = 0,
+                            phi = 1)
+                method <- "Robust Holt's"
+            }
+            else if (best == "ADN") {
+                fit3 <- nlm(MSE3, (upper + lower) / 2, x = x)
+                theta1 <- fit3$estimate[1] + fit3$estimate[1] * fit3$estimate[2] -
+                    1 - fit3$estimate[3]
+                theta2 <- (1 - fit3$estimate[1]) * fit3$estimate[3]
+                phi1 <- fit3$estimate[3]
+                fitarima <- Arima(x, order = c(1, 1, 2), fixed = c(phi1,
+                                                                   theta1, theta2))
+                fitpar <- c(alpha = fit3$estimate[1],
+                            beta = fit3$estimate[2],
+                            gamma = 0,
+                            phi = fit3$estimate[3])
+                method <- "Robust Damped Holt's"
+            }
+            else stop("Unknown model")
+
+            fitarima$par <- fitpar
+            fitarima$method <- method
+            return(fitarima)
+        }
+
+        struct.forecast <- function(x, h = 10, level = c(80, 95))
+        {
+            fit1 <- StructTS(x, "level")
+            fit2 <- StructTS(x, "trend")
+            if (-2 * fit1$loglik < -2 * fit2$loglik + 2)
+                fitStruct <- fit1
+            else fitStruct <- fit2
+            pred <- predict(fitStruct, n.ahead = h)
+            nint <- length(level)
+            lower <- matrix(NA, ncol = nint, nrow = length(pred$pred))
+            upper <- lower
+            for (i in 1:nint) {
+                qq <- qnorm(0.5 * (1 + level[i]/100))
+                lower[, i] <- pred$pred - qq * pred$se
+                upper[, i] <- pred$pred + qq * pred$se
+            }
+            colnames(lower) = colnames(upper) = paste(level, "%", sep = "")
+            fits <- rowSums(fitStruct$fitted)
+            tsp(fits) <- tsp(x)
+            return(structure(list(method = "Structural local linear",
+                                  model = fitStruct, level = level, mean = pred$pred, var = pred$se^2,
+                                  lower = lower, upper = upper, x = x, fitted = fits),
+                             class = "forecast"))
+        }
+
+
+        ftsmPI <- function (object, B, level, h, fmethod = c("ets", "arima"))
+        {
+            data = object$y$y
+            p = nrow(data)
+            n = ncol(data)
+            ncomp = dim(object$basis)[2] - 1
+            mdata = apply(data, 1, mean)
+            mdata2 = array(rep(as.matrix(mdata), B * h), dim = c(p, B, h))
+            sdata = scale(t(data), scale = FALSE)
+            load = as.matrix(svd(sdata)$v[, 1:ncomp])
+            sco = sdata %*% load
+            olivia = matrix(, ncomp, h)
+            if(fmethod == "ets")
+            {
+                for(i in 1:ncomp)
+                {
+                    olivia[i, ] = forecast(ets(sco[, i]), h = h)$mean
+                }
+            }
+            if(fmethod == "arima")
+            {
+                for(i in 1:ncomp)
+                {
+                    olivia[i, ] = forecast(auto.arima(sco[, i]), h = h)$mean
+                }
+            }
+            forerr = matrix(, (n - ncomp - h + 1), ncomp)
+            for(i in h:(n - ncomp))
+            {
+                k = i + (ncomp - h)
+                fore = matrix(, 1, ncomp)
+                if(fmethod == "ets")
+                {
+                    for(j in 1:ncomp)
+                    {
+                        fore[, j] = forecast(ets(sco[1:k, j]), h = h)$mean[h]
+                    }
+                }
+                if(fmethod == "arima")
+                {
+                    for(j in 1:ncomp)
+                    {
+                        fore[, j] = forecast(auto.arima(sco[1:k, j]), h = h)$mean[h]
+                    }
+                }
+                forerr[i - h + 1, ] = sco[k + h, ] - fore
+            }
+            resi = t(sdata) - load %*% t(sco)
+            q = array(NA, dim = c(p, B, h))
+            for(j in 1:h)
+            {
+                for(i in 1:p)
+                {
+                    q[i, , j] = sample(resi[i, ], size = B, replace = TRUE)
+                }
+            }
+            ny = array(NA, dim = c(ncomp, B, h))
+            for(j in 1:h)
+            {
+                for(i in 1:ncomp)
+                {
+                    ny[i, , j] = sample(forerr[, i], size = B, replace = TRUE)
+                }
+            }
+            oli = array(rep(olivia, B * h), dim = c(ncomp, B, h))
+            fo = array(NA, dim = c(ncomp, B, h))
+            for(j in 1:h)
+            {
+                for(i in 1:B)
+                {
+                    fo[, i, j] = oli[, i, j] + ny[, i, j]
+                }
+            }
+            pred = array(NA, dim = c(p, B, h))
+            for(j in 1:h)
+            {
+                for(i in 1:B)
+                {
+                    pred[, i, j] = load %*% fo[, i, j] + mdata2[, i, j] + q[, i, j]
+                }
+            }
+            k1 = k2 = matrix(NA, p, h)
+            for(j in 1:h)
+            {
+                for(i in 1:p)
+                {
+                    k1[i, j] = quantile(pred[i, , j], (100 - level)/200, na.rm = TRUE)
+                    k2[i, j] = quantile(pred[i, , j], 1 - (100 - level)/200, na.rm = TRUE)
+                }
+            }
+            return(list(bootsamp = pred, lb = k1, ub = k2))
+        }
+
+        ####################################################################################################
+
         method <- match.arg(method)
         require(rainbow)
         jumpchoice <- match.arg(jumpchoice)

@@ -7,7 +7,7 @@
 karup_king(data)
 }
 \arguments{
-\item{data}{data.frame. A dataset with two variables: \code{age,} the group age each 5 years; and \code{pop}, the population for that age.}
+\item{data}{data.frame. A dataset with two variables: \code{age}, the group age each 5 years; and \code{pop}, the population for that age.}
 }
 \value{
 \code{karup_king} function returns a a data frame with separated simple ages.

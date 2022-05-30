@@ -9,8 +9,9 @@
 #' @return \code{Beers} returns a data.frame with specific ages and its population.
 #'
 #' @examples
-#'
+#' \donttest{
 #' Beers(Ecuador1990, age, population)
+#' }
 #'
 #' @author Cesar Gamboa-Sanabria
 #'

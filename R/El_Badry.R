@@ -15,12 +15,13 @@
 #' @return \code{Moultrie} returns a list with two elements: a data.frame with corrected children for each number of Children Ever Born and five-year grouped ages and a data.frame with combinations of five-year grouped age to estimate intercept, slope, and R-squared. By default, the method uses the best value of R-squared to apply the El Badry correction.
 #'
 #' @examples
-#'
+#' \donttest{
 #' CEB_data <- tidyr::gather(CEB, ages, childs, -Children_Ever_Born)
 #' results <- Moultrie(CEB_data, ages, childs, Children_Ever_Born)
 #' CEB_data <- tidyr::pivot_wider(results, names_from=age, values_from=childs)
 #' CEB_data <- tidyr::gather(CEB_data, ages, children, -CEB)
 #' El_Badry(CEB_data,ages, CEB, children)
+#' }
 #'
 #' @author Cesar Gamboa-Sanabria
 #'
