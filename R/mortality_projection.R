@@ -24,30 +24,30 @@
 #'
 #' data(CR_mortality_rates_1950_2011)
 #'
-#' CR_mortality_rates_1950_2011 %>%
-#' write.table(.,
-#' file = "CR_mortality_rates_1950_2011.txt",
-#' sep = "\t",
-#' row.names = FALSE,
-#' col.names = TRUE,
-#' quote = FALSE)
+#' #CR_mortality_rates_1950_2011 %>%
+#' #write.table(.,
+#' #file = "CR_mortality_rates_1950_2011.txt",
+#' #sep = "\t",
+#' #row.names = FALSE,
+#' #col.names = TRUE,
+#' #quote = FALSE)
 #'
 #'
 #' data(CR_populations_1950_2011)
 #'
-#' CR_populations_1950_2011 %>%
-#' write.table(.,
-#' file = "CR_populations_1950_2011.txt",
-#' sep = "\t",
-#' row.names = FALSE,
-#' col.names = TRUE,
-#' quote = FALSE)
+#' #CR_populations_1950_2011 %>%
+#' #write.table(.,
+#' #file = "CR_populations_1950_2011.txt",
+#' #sep = "\t",
+#' #row.names = FALSE,
+#' #col.names = TRUE,
+#' #quote = FALSE)
 #'
-#' result <- mortality_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
-#' total_population_path = "CR_populations_1950_2011.txt",
-#' omega_age = 115, first_year_projection = 2011, horizon = 2150)
+#' #result <- mortality_projection(mortality_rates_path = "CR_mortality_rates_1950_2011.txt",
+#' #total_population_path = "CR_populations_1950_2011.txt",
+#' #omega_age = 115, first_year_projection = 2011, horizon = 2150)
 #'
-#' result
+#'
 #' }
 #'
 #' @author Cesar Gamboa-Sanabria

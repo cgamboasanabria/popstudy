@@ -32,6 +32,7 @@ Imports:
     corrplot,
     correlation,
     parallel,
+    snow,
     here,
     stringr,
     scales,
@@ -42,6 +43,6 @@ Encoding: UTF-8
 RdMacros: Rdpack
 LazyData: true
 URL: http://www.cesargamboasanabria.com
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Suggests: 
     testthat

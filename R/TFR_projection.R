@@ -22,30 +22,30 @@
 #'
 #' data(CR_fertility_rates_1950_2011)
 #'
-#' CR_fertility_rates_1950_2011 %>%
-#' write.table(.,
-#' file = "CR_fertility_rates_1950_2011.txt",
-#' sep = "\t",
-#' row.names = FALSE,
-#' col.names = TRUE,
-#' quote = FALSE)
+#' #CR_fertility_rates_1950_2011 %>%
+#' #write.table(.,
+#' #file = "CR_fertility_rates_1950_2011.txt",
+#' #sep = "\t",
+#' #row.names = FALSE,
+#' #col.names = TRUE,
+#' #quote = FALSE)
 #'
 #'
 #' data(CR_women_childbearing_age_1950_2011)
 #'
-#' CR_women_childbearing_age_1950_2011 %>%
-#' write.table(.,
-#' file = "CR_women_childbearing_age_1950_2011.txt",
-#' sep = "\t",
-#' row.names = FALSE,
-#' col.names = TRUE,
-#' quote = FALSE)
+#' #CR_women_childbearing_age_1950_2011 %>%
+#' #write.table(.,
+#' #file = "CR_women_childbearing_age_1950_2011.txt",
+#' #sep = "\t",
+#' #row.names = FALSE,
+#' #col.names = TRUE,
+#' #quote = FALSE)
 #'
-#' result <- TFR_projection(TFR_path = "CR_fertility_rates_1950_2011.txt",
-#' WRA_path = "CR_women_childbearing_age_1950_2011.txt",
-#' omega_age = 115, first_year_projection = 2011, horizon = 2150)
+#' #result <- TFR_projection(TFR_path = "CR_fertility_rates_1950_2011.txt",
+#' #WRA_path = "CR_women_childbearing_age_1950_2011.txt",
+#' #omega_age = 115, first_year_projection = 2011, horizon = 2150)
 #'
-#' result
+#'
 #' }
 #'
 #' @author Cesar Gamboa-Sanabria
@@ -53,7 +53,7 @@
 #' @export
 TFR_projection <- function(TFR_path, WRA_path,
                            horizon, first_year_projection, ...){
-    require(rainbow)
+    requireNamespace("rainbow", quietly=TRUE)
 
     TFR <- read.demogdata(file = TFR_path, popfile = WRA_path,
                           type = "fertility", max.mx = 1000,  skip = 0,
@@ -383,7 +383,7 @@ TFR_projection <- function(TFR_path, WRA_path,
 
 
         method <- match.arg(method)
-        require(rainbow)
+        requireNamespace("rainbow", quietly=TRUE)
         jumpchoice <- match.arg(jumpchoice)
         pimethod <- match.arg(pimethod)
         if (jumpchoice == "actual") {

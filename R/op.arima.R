@@ -34,7 +34,9 @@
 #'
 #' \donttest{
 #'
-#' op.arima(arima_process = c(6,1,6,6,1,6), time_serie = AirPassengers, seasonal_periodicity = 12)
+#' op.arima(arima_process = c(2,1,2,2,1,2),
+#' time_serie = AirPassengers,
+#' seasonal_periodicity = 12, parallelize=TRUE)
 #'
 #' }
 #'
@@ -42,7 +44,7 @@
 #'
 #' @references
 #'
-#'
+#' \insertRef{tesis}{popstudy}
 #'
 #' @export
 op.arima <- function (arima_process = c(
@@ -67,8 +69,10 @@ ISP = 100,
 ...)
 {
     data_partition <- round(length(time_serie) * prop, 0)
-    train <<- subset(time_serie, end = data_partition)
-    test <<- subset(time_serie, start = data_partition + 1)
+    # train <<- subset(time_serie, end = data_partition)
+    # test <<- subset(time_serie, start = data_partition + 1)
+    train <- subset(time_serie, end = data_partition)
+    test <- subset(time_serie, start = data_partition + 1)
     arima_model <- function(time_serie,
                             non_seasonal,
                             seasonal,

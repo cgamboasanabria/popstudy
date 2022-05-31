@@ -10,4 +10,4 @@ utils::globalVariables(c("date_reg", "age", "Li", "A", "Ls", "choose_days.fin", 
                          "train", "test", "Valor", "Medida", "AIC", "AICc", "BIC", "MAE", "RMSE", "MASE",
                          "puntaje", "ponde", "mod", "variable", "cases", "p", "q", "P", "Q",
                          "train", "test", "isp", "poblacion", "periodo", "sexo", "edad", "Year",
-                         "Age", "Female", "Male"))
+                         "Age", "Female", "Male", "CR_mortality_rates_2010_2015.txt"))

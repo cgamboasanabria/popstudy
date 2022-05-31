@@ -31,30 +31,30 @@ library(dplyr)
 
 data(CR_fertility_rates_1950_2011)
 
-CR_fertility_rates_1950_2011 \%>\%
-write.table(.,
-file = "CR_fertility_rates_1950_2011.txt",
-sep = "\t",
-row.names = FALSE,
-col.names = TRUE,
-quote = FALSE)
+#CR_fertility_rates_1950_2011 \%>\%
+#write.table(.,
+#file = "CR_fertility_rates_1950_2011.txt",
+#sep = "\t",
+#row.names = FALSE,
+#col.names = TRUE,
+#quote = FALSE)
 
 
 data(CR_women_childbearing_age_1950_2011)
 
-CR_women_childbearing_age_1950_2011 \%>\%
-write.table(.,
-file = "CR_women_childbearing_age_1950_2011.txt",
-sep = "\t",
-row.names = FALSE,
-col.names = TRUE,
-quote = FALSE)
+#CR_women_childbearing_age_1950_2011 \%>\%
+#write.table(.,
+#file = "CR_women_childbearing_age_1950_2011.txt",
+#sep = "\t",
+#row.names = FALSE,
+#col.names = TRUE,
+#quote = FALSE)
 
-result <- TFR_projection(TFR_path = "CR_fertility_rates_1950_2011.txt",
-WRA_path = "CR_women_childbearing_age_1950_2011.txt",
-omega_age = 115, first_year_projection = 2011, horizon = 2150)
+#result <- TFR_projection(TFR_path = "CR_fertility_rates_1950_2011.txt",
+#WRA_path = "CR_women_childbearing_age_1950_2011.txt",
+#omega_age = 115, first_year_projection = 2011, horizon = 2150)
 
-result
+
 }
 
 }

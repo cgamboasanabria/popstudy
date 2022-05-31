@@ -5,9 +5,11 @@
 #' @return \code{project_structure} create basic diretories and files in the current working direcotory/repository.
 #'
 #' @examples
-#'
+#' \donttest{
+#' \dontrun{
 #' project_structure()
-#'
+#'}
+#'}
 #' @author Cesar Gamboa-Sanabria
 #'
 #' @export

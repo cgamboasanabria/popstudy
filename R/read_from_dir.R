@@ -10,8 +10,10 @@
 #'
 #' @examples
 #' \donttest{
+#' \dontrun{
 #' file.create("test_file.txt")
 #' read_from_dir("test_file.txt")
+#' }
 #' }
 #'
 #' @author Cesar Gamboa-Sanabria

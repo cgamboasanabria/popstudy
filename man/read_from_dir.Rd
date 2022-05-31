@@ -19,8 +19,10 @@ Get full path from a file.
 }
 \examples{
 \donttest{
+\dontrun{
 file.create("test_file.txt")
 read_from_dir("test_file.txt")
+}
 }
 
 }

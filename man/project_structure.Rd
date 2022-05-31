@@ -13,9 +13,11 @@ project_structure()
 Create a basic structure for a project repo.
 }
 \examples{
-
+\donttest{
+\dontrun{
 project_structure()
-
+}
+}
 }
 \author{
 Cesar Gamboa-Sanabria

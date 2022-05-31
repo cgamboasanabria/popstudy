@@ -57,13 +57,15 @@ Estimates the best predictive ARIMA model using overparameterization.
 
 \donttest{
 
-op.arima(arima_process = c(6,1,6,6,1,6), time_serie = AirPassengers, seasonal_periodicity = 12)
+op.arima(arima_process = c(2,1,2,2,1,2),
+time_serie = AirPassengers,
+seasonal_periodicity = 12, parallelize=TRUE)
 
 }
 
 }
 \references{
-
+\insertRef{tesis}{popstudy}
 }
 \author{
 Cesar Gamboa-Sanabria

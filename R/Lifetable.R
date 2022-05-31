@@ -25,6 +25,7 @@
 #' @examples
 #'
 #' \donttest{
+#' \dontrun{
 #'  write.table(CR_mortality_rates_2010_2015,
 #'  file = "CR_mortality_rates_2010_2015.txt",
 #'  sep = "\t", row.names = FALSE, quote = FALSE)
@@ -36,7 +37,7 @@
 #'  Lifetable("CR_mortality_rates_2010_2015.txt", "CR_populations_1950_2015.txt",
 #'  sex="female", first_year=2011, threshold=2150, jump="actual", max_age = 100,
 #'  element="ex", label="CR")
-#'
+#'}
 #' }
 #' @author Cesar Gamboa-Sanabria
 #'
