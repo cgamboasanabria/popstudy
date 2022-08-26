@@ -6,7 +6,10 @@
 #'
 #' @param ... Arguments to be passed to \code{dplyr::select}, i.e., age and population, respectively.
 #'
-#' @return \code{Myers} returns a list with two objects, a data.frame with specific digits index and the Myer's Blend Index.
+#' @return \code{Myers} returns a list with two objects:
+#'
+#' \item{Mmat}{a data.frame with specific digits index}
+#' \item{MI}{the Myer's Blend Index.}
 #'
 #' @examples
 #'

@@ -14,12 +14,12 @@
 #'
 #' @param ... additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.
 #'
-#' @return \code{mortality_projection} returns a list with both female and male mortality projections.
+#' @return \code{mortality_projection} returns an object of class \code{fmforecast} with with both female and male mortality projections and the components of \code{\link[demography:forecast.lca]{demography::forecast.lca()}}.
 #'
 #' @examples
 #'
 #' \donttest{
-#'
+#' \dontrun{
 #' library(dplyr)
 #'
 #' data(CR_mortality_rates_1950_2011)
@@ -47,7 +47,7 @@
 #' #total_population_path = "CR_populations_1950_2011.txt",
 #' #omega_age = 115, first_year_projection = 2011, horizon = 2150)
 #'
-#'
+#'}
 #' }
 #'
 #' @author Cesar Gamboa-Sanabria

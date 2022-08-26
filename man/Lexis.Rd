@@ -41,7 +41,7 @@ Plot a Lexis Diagram from births and deaths data for a given year, month, and da
 \examples{
 
 Lexis(CR_deaths, CR_births, choose_year=2011, choose_month=1, choose_day=1, ages=0:9)$diagram
-\donttest{
+
 ##Lexis diagram with specific factors
 data("births_deaths")
 Births <- dplyr::filter(births_deaths$births, sex=="male")
@@ -49,7 +49,7 @@ Deaths <- dplyr::filter(births_deaths$deaths, sex=="male")
 Lexis(deaths_data=Deaths, births_data=Births, first.date = "1999-01-01",
 choose_year=2007, choose_month=1, choose_day=1, ages=0:4,
 factors = c(.2,.41,.47,.48,.48))$diagram
-}
+
 }
 \references{
 \insertRef{Lexis}{popstudy}

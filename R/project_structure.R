@@ -2,7 +2,7 @@
 #'
 #' Create a basic structure for a project repo.
 #'
-#' @return \code{project_structure} create basic diretories and files in the current working direcotory/repository.
+#' @return \code{project_structure} does not return a value, it only creates basic diretories and files in the current working direcotory/repository.
 #'
 #' @examples
 #' \donttest{
@@ -49,5 +49,5 @@ project_structure <- function(){
     file.create("Script/01_data_cleansing.Rmd")
     file.create("Script/02_exploratory_data_analysis.Rmd")
 
-    cat("Done!")
+    message("Done!")
 }

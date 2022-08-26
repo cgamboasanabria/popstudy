@@ -28,7 +28,12 @@
 #'
 #' @param ... additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.
 #'
-#' @return \code{op.arima} function returns a list with the estimated models, the best model and their measures.
+#' @return \code{op.arima} returns an object of class \code{list} with the following components:
+#'
+#' \item{arima_models}{all models defined by the \code{arima_process} argument.}
+#' \item{final_measures}{goodness of fit and precision measures for each model.}
+#' \item{bests}{a sorted list with the best ARIMA models.}
+#' \item{best_model}{a list of "Arima", see \code{\link[forecast:Arima]{forecast::Arima()}}}
 #'
 #' @examples
 #'
@@ -36,7 +41,7 @@
 #'
 #' op.arima(arima_process = c(2,1,2,2,1,2),
 #' time_serie = AirPassengers,
-#' seasonal_periodicity = 12, parallelize=TRUE)
+#' seasonal_periodicity = 12, parallelize=FALSE)
 #'
 #' }
 #'

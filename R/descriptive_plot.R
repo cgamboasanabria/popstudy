@@ -14,11 +14,9 @@
 #'
 #' @examples
 #'
-#' \donttest{
 #' df <- data.frame(var1=rpois(50, 6), var2=rgamma(50, shape=5,rate=.4), var3=rnorm(50, 10))
 #' descriptive_plot(df, var1, var3)
-#' descriptive_plot(df, var1:var3)
-#' }
+#'
 #'
 #' @author Cesar Gamboa-Sanabria
 #'

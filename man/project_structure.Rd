@@ -7,7 +7,7 @@
 project_structure()
 }
 \value{
-\code{project_structure} create basic diretories and files in the current working direcotory/repository.
+\code{project_structure} does not return a value, it only creates basic diretories and files in the current working direcotory/repository.
 }
 \description{
 Create a basic structure for a project repo.

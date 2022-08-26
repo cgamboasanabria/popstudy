@@ -6,7 +6,7 @@
 #'
 #' @param path The file location.
 #'
-#' @return \code{read_from_dir} Returns the normalizaed path for a file.
+#' @return \code{read_from_dir} returns an object of class character with the normalizaed path for a file.
 #'
 #' @examples
 #' \donttest{

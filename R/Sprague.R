@@ -6,7 +6,7 @@
 #'
 #' @param ... Arguments to be passed to \code{dplyr::select}, i.e., age and population, respectively.
 #'
-#' @return \code{Sprague} returns a data.frame with specific ages and its population.
+#' @return \code{Sprague} returns an object of class data.frame with population for specific ages.
 #'
 #' @examples
 #'

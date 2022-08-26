@@ -18,7 +18,7 @@ TFR_projection(TFR_path, WRA_path, horizon, first_year_projection, ...)
 \item{...}{additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.}
 }
 \value{
-\code{TFR_projection} returns the forecast fertility rates.
+\code{TFR_projection} returns an object of class \code{fmforecast} with the forecast fertility rates and the components of \code{\link[demography:forecast.fdm]{demography::forecast.fdm()}}.
 }
 \description{
 Forecasting total fertility rates.

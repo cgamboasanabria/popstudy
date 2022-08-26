@@ -16,11 +16,12 @@
 #'
 #' @param first_year_projection numeric. Year for the base population.
 #'
-#' @return \code{netmigration_projection} returns the forecast net migration.
+#' @return \code{netmigration_projection} returns an object of class \code{fmforecast} with the forecast netmigration models and the components of \code{\link[demography:forecast.fdmpr]{demography::forecast.fdmpr()}}.
 #'
 #' @examples
 #'
 #' \donttest{
+#' \dontrun{
 #'
 #' library(dplyr)
 #'
@@ -72,7 +73,7 @@
 #' #WRA_path = "CR_women_childbearing_age_1950_2011.txt",
 #' #omega_age = 115, first_year_projection = 2011, horizon = 2150)
 #'
-#'
+#'}
 #' }
 #'
 #' @author Cesar Gamboa-Sanabria

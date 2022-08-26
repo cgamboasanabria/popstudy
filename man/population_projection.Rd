@@ -10,7 +10,12 @@ population_projection(...)
 \item{...}{required arguments for \code{\link{mortality_projection}}, \code{\link{TFR_projection}} and \code{\link{netmigration_projection}}.}
 }
 \value{
-\code{population_projection} returns the national projections by sex and year.
+\code{population_projection} returns an object of class \code{list} with the following components:
+
+\item{mort}{mortality projections from \code{\link{mortality_projection}}.}
+\item{fert}{fertility projections from \code{\link{TFR_projection}}.}
+\item{mig}{netmigration projections from \code{\link{netmigration_projection}}.}
+\item{pop}{the national projections by sex and year.}
 }
 \description{
 Forecasting population using the components method.
@@ -18,6 +23,7 @@ Forecasting population using the components method.
 \examples{
 
 \donttest{
+\dontrun{
 
 library(dplyr)
 
@@ -69,9 +75,14 @@ data(CR_women_childbearing_age_1950_2011)
 #WRA_path = "CR_women_childbearing_age_1950_2011.txt",
 #omega_age = 115, first_year_projection = 2011, horizon = 2020)
 
-
+}
 }
 
+}
+\seealso{
+\code{\link{mortality_projection}}
+\code{\link{TFR_projection}}
+\code{\link{netmigration_projection}}
 }
 \author{
 Cesar Gamboa-Sanabria

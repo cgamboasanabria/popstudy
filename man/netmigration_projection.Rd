@@ -30,7 +30,7 @@ netmigration_projection(
 \item{first_year_projection}{numeric. Year for the base population.}
 }
 \value{
-\code{netmigration_projection} returns the forecast net migration.
+\code{netmigration_projection} returns an object of class \code{fmforecast} with the forecast netmigration models and the components of \code{\link[demography:forecast.fdmpr]{demography::forecast.fdmpr()}}.
 }
 \description{
 Forecasting net migration.
@@ -38,6 +38,7 @@ Forecasting net migration.
 \examples{
 
 \donttest{
+\dontrun{
 
 library(dplyr)
 
@@ -89,7 +90,7 @@ data(CR_women_childbearing_age_1950_2011)
 #WRA_path = "CR_women_childbearing_age_1950_2011.txt",
 #omega_age = 115, first_year_projection = 2011, horizon = 2150)
 
-
+}
 }
 
 }

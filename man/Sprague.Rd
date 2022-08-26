@@ -12,7 +12,7 @@ Sprague(data, ...)
 \item{...}{Arguments to be passed to \code{dplyr::select}, i.e., age and population, respectively.}
 }
 \value{
-\code{Sprague} returns a data.frame with specific ages and its population.
+\code{Sprague} returns an object of class data.frame with population for specific ages.
 }
 \description{
 Method to open five-year grouped ages into specific ages.

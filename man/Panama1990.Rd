@@ -16,7 +16,7 @@ Panama census data in 1990 by specific ages.
   }
 }
 \source{
-\href{https://censos.ccp.ucr.ac.cr/}{https://censos.ccp.ucr.ac.cr/}
+\href{https://ccp.ucr.ac.cr/}{https://ccp.ucr.ac.cr/}
 }
 \examples{
 data(Panama1990)

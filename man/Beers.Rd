@@ -12,15 +12,15 @@ Beers(data, ...)
 \item{...}{Arguments to be passed to \code{dplyr::select}, i.e., age and population, respectively.}
 }
 \value{
-\code{Beers} returns a data.frame with specific ages and its population.
+\code{Beers} returns a data.frame with specific ages and populations.
 }
 \description{
 Method to open five-year grouped ages into specific ages.
 }
 \examples{
-\donttest{
+
 Beers(Ecuador1990, age, population)
-}
+
 
 }
 \references{

@@ -12,7 +12,7 @@ read_from_dir(file, path = NULL)
 \item{path}{The file location.}
 }
 \value{
-\code{read_from_dir} Returns the normalizaed path for a file.
+\code{read_from_dir} returns an object of class character with the normalizaed path for a file.
 }
 \description{
 Get full path from a file.

@@ -16,17 +16,19 @@ anonymous(data, ID, string_length = 15, SEED = NULL)
 \item{SEED}{to be passed to \code{\link{set.seed}} to keep the the same new id's.}
 }
 \value{
-\code{anonymous} function returns a list with two data frames: original data with the new variable and another data frame with the original variable and the new one.
+\code{anonymous} function returns a list with two data frames:
+\item{data}{original data with the new variable}
+\item{dictionary}{data frame with the original variable and the new one}
 }
 \description{
 Anonymizing a data frame by avoiding vulnerability to a rainbow table attack.
 }
 \examples{
-\donttest{
+
 library(dplyr)
 df <- select(mutate(mtcars, id=rownames(mtcars)), id, !contains("id"))
 anonymous(df, ID="id", string_length = 5, SEED=160589)
-}
+
 
 }
 \references{

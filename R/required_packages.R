@@ -4,10 +4,15 @@
 #'
 #' @param ... packages names.
 #'
+#' @return \code{required_packages} does not return a value, it only install and load the desired packages.
+#'
 #' @examples
-#'
-#' required_packages(tidyr, dplyr, ggplot2)
-#'
+#'\donttest{
+#'\dontrun{
+#' #If you need to install and load the tidyr, dplyr and ggplot2 packages, run the following line:
+#' #required_packages(tidyr, dplyr, ggplot2)
+#'}
+#'}
 #' @author Cesar Gamboa-Sanabria
 #'
 #' @export

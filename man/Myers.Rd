@@ -12,7 +12,10 @@ Myers(data, ...)
 \item{...}{Arguments to be passed to \code{dplyr::select}, i.e., age and population, respectively.}
 }
 \value{
-\code{Myers} returns a list with two objects, a data.frame with specific digits index and the Myer's Blend Index.
+\code{Myers} returns a list with two objects:
+
+\item{Mmat}{a data.frame with specific digits index}
+\item{MI}{the Myer's Blend Index.}
 }
 \description{
 An upgrade over the Whipple index allows analyzing digit's attraction (or repulsion) from 0 to 9.

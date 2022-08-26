@@ -24,13 +24,13 @@ El_Badry(data, age, CEB, childs, req_ages = NULL)
 The method corrects the zero parity omission error.
 }
 \examples{
-\donttest{
+
 CEB_data <- tidyr::gather(CEB, ages, childs, -Children_Ever_Born)
 results <- Moultrie(CEB_data, ages, childs, Children_Ever_Born)
 CEB_data <- tidyr::pivot_wider(results, names_from=age, values_from=childs)
 CEB_data <- tidyr::gather(CEB_data, ages, children, -CEB)
 El_Badry(CEB_data,ages, CEB, children)
-}
+
 
 }
 \references{

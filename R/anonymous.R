@@ -7,14 +7,16 @@
 #' @param string_length numeric. It defines the string length of the new identification variable.
 #' @param SEED to be passed to \code{\link{set.seed}} to keep the the same new id's.
 #'
-#' @return \code{anonymous} function returns a list with two data frames: original data with the new variable and another data frame with the original variable and the new one.
+#' @return \code{anonymous} function returns a list with two data frames:
+#' \item{data}{original data with the new variable}
+#' \item{dictionary}{data frame with the original variable and the new one}
 #'
 #' @examples
-#' \donttest{
+#'
 #' library(dplyr)
 #' df <- select(mutate(mtcars, id=rownames(mtcars)), id, !contains("id"))
 #' anonymous(df, ID="id", string_length = 5, SEED=160589)
-#' }
+#'
 #'
 #' @author Cesar Gamboa-Sanabria
 #'
@@ -32,5 +34,5 @@ anonymous <- function(data, ID, string_length=15, SEED=NULL){
     set.seed(SEED)
     anonymized_id <- replicate(n, paste(sample(special_chars, string_length, replace = TRUE), collapse = ""))
     list(data=eval(parse(text = paste("mutate(data,", ID, "=anonymized_id[ids])"))),
-         diccionary=unique(do.call(cbind, list(select(data, ID), anonymized_id=as.character(anonymized_id[ids])))))
+         dictionary=unique(do.call(cbind, list(select(data, ID), anonymized_id=as.character(anonymized_id[ids])))))
 }

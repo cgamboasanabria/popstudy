@@ -12,7 +12,9 @@
 #'
 #' @param ... additional arguments to be passed to \code{\link[forecast:Arima]{forecast::Arima()}}.
 #'
-#' @return \code{TFR_projection} returns the forecast fertility rates.
+#' @return
+#'
+#' \code{TFR_projection} returns an object of class \code{fmforecast} with the forecast fertility rates and the components of \code{\link[demography:forecast.fdm]{demography::forecast.fdm()}}.
 #'
 #' @examples
 #'
