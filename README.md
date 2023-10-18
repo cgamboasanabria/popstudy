@@ -1,7 +1,7 @@
 # popstudy
 Applied techniques to demographic analysis.
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cgamboasanabria/popstudy/CI)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/cgamboasanabria/popstudy/workflow.yml)
 ![GitHub language count](https://img.shields.io/github/languages/count/cgamboasanabria/popstudy)
 ![GitHub top language](https://img.shields.io/github/languages/top/cgamboasanabria/popstudy)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/cgamboasanabria/popstudy)
