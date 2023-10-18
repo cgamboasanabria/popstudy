@@ -79,7 +79,25 @@
 #'
 #' @export
 population_projection <- function(...){
-    fun_args <- stackoverflow::match.call.defaults(expand.dots = TRUE)[-1] %>% as.list
+
+    match.call.defaults <- function(definition = sys.function(sys.parent()),
+                                    call = sys.call(sys.parent()),
+                                    expand.dots = TRUE,
+                                    envir = parent.frame(2L)) {
+        call <- match.call(definition, call, expand.dots, envir)
+        formals <- formals(definition)
+
+        if(expand.dots && '...' %in% names(formals))
+            formals[['...']] <- NULL
+
+        for(i in setdiff(names(formals), names(call)))
+            call[i] <- list( formals[[i]] )
+
+
+        match.call(definition, call, TRUE, envir)
+    }
+
+    fun_args <- match.call.defaults(expand.dots = TRUE)[-1] %>% as.list
 
     mortality_rates <- read.demogdata(file = fun_args$mortality_rates_path,
                                       popfile = fun_args$total_population_path, type = "mortality",

@@ -7,6 +7,7 @@
 #' @author Cesar Gamboa-Sanabria \email{info@cesargamboasanabria.com}
 #'
 #' @name popstudy
+#' @aliases popstudy-package
 #'
 #' @importFrom Rdpack reprompt
 #' @importFrom lubridate date_decimal decimal_date interval ymd years year days
@@ -20,7 +21,6 @@
 #' @importFrom moments kurtosis skewness
 #' @importFrom ggpubr ggarrange ggtexttable ttheme
 #' @importFrom grid unit
-#' @importFrom stackoverflow match.call.defaults
 #' @importFrom utils combn capture.output installed.packages install.packages
 #' @importFrom rcompanion wilcoxonRG
 #' @importFrom DescTools Lambda

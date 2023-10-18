@@ -19,7 +19,7 @@ Estimated y projected populations for Costa Rica 1950-2011.
   }
 }
 \source{
-\href{https://www.inec.go.cr/}{https://www.inec.go.cr/}
+\href{https://inec.cr/}{https://inec.cr/}
 }
 \examples{
 data(CR_populations_1950_2011)

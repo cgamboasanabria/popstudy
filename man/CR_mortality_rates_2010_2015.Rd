@@ -19,7 +19,7 @@ Mortality rates for Costa Rica in 2010-2015
 }
 
 \source{
-\href{https://www.inec.go.cr/}{https://www.inec.go.cr/}
+\href{https://inec.cr/}{https://inec.cr/}
 }
 \examples{
 data(CR_mortality_rates_2010_2015)

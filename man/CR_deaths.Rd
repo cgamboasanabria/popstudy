@@ -18,7 +18,7 @@ Deaths registers in Costa Rica.
 }
 
 \source{
-\href{https://www.inec.go.cr/}{https://www.inec.go.cr/}
+\href{https://inec.cr/}{https://inec.cr/}
 }
 
 \examples{

@@ -3,6 +3,7 @@
 \docType{package}
 \name{popstudy}
 \alias{popstudy}
+\alias{popstudy-package}
 \title{popstudy Package}
 \description{
 Applied techniques to demographic and time series analysis.

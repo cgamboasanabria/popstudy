@@ -36,6 +36,24 @@
 #'
 #' @export
 El_Badry <- function(data, age, CEB, childs, req_ages=NULL){
+
+    match.call.defaults <- function(definition = sys.function(sys.parent()),
+                                    call = sys.call(sys.parent()),
+                                    expand.dots = TRUE,
+                                    envir = parent.frame(2L)) {
+        call <- match.call(definition, call, expand.dots, envir)
+        formals <- formals(definition)
+
+        if(expand.dots && '...' %in% names(formals))
+            formals[['...']] <- NULL
+
+        for(i in setdiff(names(formals), names(call)))
+            call[i] <- list( formals[[i]] )
+
+
+        match.call(definition, call, TRUE, envir)
+    }
+
     vars <- match.call.defaults(expand.dots = TRUE)[-1] %>% as.list
     data <- data %>%
         select(vars$age, vars$CEB, vars$childs)

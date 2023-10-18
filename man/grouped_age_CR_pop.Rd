@@ -16,7 +16,7 @@ Costa Rica population by 5-year-group ages in 2011.
   }
 }
 \source{
-\href{https://www.inec.go.cr/}{https://www.inec.go.cr/}
+\href{https://inec.cr/}{https://inec.cr/}
 }
 \examples{
 data(grouped_age_CR_pop)
